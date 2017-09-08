@@ -54,28 +54,48 @@ namespace PixelPlacer.Controllers
         }
 
         // GET: Projects/Create
-        public async Task<IActionResult> Create()
-        {
-            var user = await GetCurrentUserAsync();
-            CreateNewProjectViewModel model = new CreateNewProjectViewModel(_context, user);
-            return View(model);
-        }
+        //public async Task<IActionResult> RetrieveBackGroundVideo(int videoId)
+        //{
+        //    var user = await GetCurrentUserAsync();
+        //    CreateNewProjectViewModel model = new CreateNewProjectViewModel(_context, user);
+        //    return View(model);
+        //}
 
-        // POST: Projects/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Projects/Create       
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProjectId,Title")] Project project)
+        public async Task<IActionResult> CreateProject(int videoId)
         {
-            if (ModelState.IsValid)
+            ModelState.Remove("Project.Title");
+            var user = await GetCurrentUserAsync();
+            var model = new CreateNewProjectViewModel(_context, user);
+            var video = await _context.Video.SingleOrDefaultAsync(v => v.VideoId == videoId);
+
+
+            var currentProject = await _context.Project
+                .SingleOrDefaultAsync(m => m.User == user && m.Title == null);
+
+            if (currentProject == null)
             {
-                _context.Add(project);
+                Project project = new Project() { User = user };
+                _context.Project.Add(project);
+                ProjectVideos projectVideos = new ProjectVideos() { VideoId = video.VideoId, SavedProjectId = project.ProjectId };
+                _context.ProjectVideos.Add(projectVideos);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("SelectOverlay", "Projects", new { projId = project.ProjectId });
             }
-            return View(project);
+            else {
+                ProjectVideos pv = new ProjectVideos() { VideoId = video.VideoId, SavedProjectId = currentProject.ProjectId };
+                _context.ProjectVideos.Add(pv);
+                await _context.SaveChangesAsync();              
+            }
+            return RedirectToAction("SelectOverlay", "Project", new { projId = currentProject.ProjectId });
         }
+
+             
+
+
+
 
         // GET: Projects/Edit/5
         public async Task<IActionResult> Edit(int? id)
