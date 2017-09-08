@@ -1,0 +1,42 @@
+@model PixelPlacer.Models.Video
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Video</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.VideoTitle)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.VideoTitle)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.VideoFilePath)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.VideoFilePath)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Thumbnail)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Thumbnail)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.VideoTypeId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.VideoTypeId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.VideoId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

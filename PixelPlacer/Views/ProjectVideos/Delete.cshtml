@@ -1,0 +1,47 @@
+@model PixelPlacer.Models.ProjectVideos
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>ProjectVideos</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <input type="hidden" asp-for="ProjectVideosId" />
+        <dt>
+            @Html.DisplayNameFor(model => model.SavedProjectId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SavedProjectId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.XPositition)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.XPositition)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.YPosition)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.YPosition)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Video)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Video.UserId)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <a asp-action="Index">Back to List</a>
+        </div>
+    </form>
+</div>

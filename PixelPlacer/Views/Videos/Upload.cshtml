@@ -1,0 +1,67 @@
+@model PixelPlacer.Models.ViewModels.UploadVideoViewModel
+
+@{
+    ViewData["Title"] = "Upload";
+}
+
+<h2>Create</h2>
+
+<form asp-action="Upload" enctype="multipart/form-data">
+    <div class="form-horizontal">
+        <h4>Video</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="@Model.Video.VideoTitle" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="@Model.Video.VideoTitle" class="form-control" />
+                <span asp-validation-for="@Model.Video.VideoTitle" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="@Model.Video.VideoTypeId" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                @Html.DropDownList(
+                    "Video.VideoTypeId",
+                    @Model.VideoTypeList,
+                    new
+                    {
+                        @name = "Video.VideoTypeId"
+                    }
+                )
+                <span asp-validation-for="@Model.Video.VideoTypeId" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10">
+            <label asp-for="@Model.UserVideo" class="col-md-2 control-label">Upload Video</label>
+                <input asp-for="@Model.UserVideo" class="form-control" type="file" accept="video/*" />
+            </div>
+        </div>
+
+        @*<div class="form-group">
+                <label asp-for="Thumbnail" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="Thumbnail" class="form-control" />
+                    <span asp-validation-for="Thumbnail" class="text-danger"></span>
+                </div>
+            </div>*@
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Upload" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
