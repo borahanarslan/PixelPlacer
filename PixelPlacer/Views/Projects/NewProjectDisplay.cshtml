@@ -37,7 +37,7 @@
     </div>
     }
     <div class="col-lg-4">
-        <div class="row">
+        <div class="row overlayVideo">
             @foreach (var item in Model.OverLay)
             {
                 <div></div>
@@ -45,6 +45,7 @@
                 <div id="vid-1">
                     <video width="200" controls Autoplay="autoplay" loop="loop" type="video/mp4" src=@item.VFilePath></video>
                 </div>
+                <canvas id="canvas-@item.ProjVidId"></canvas>
             }
         </div>
     </div>

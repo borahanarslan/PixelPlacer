@@ -59,6 +59,7 @@ namespace PixelPlacer.Models.ViewModels
                            VFilePath = v.VideoFilePath,
                            VTypeId = v.VideoTypeId,
                            ProjId = pv.ProjectId,
+                           ProjVidId = pv.ProjectVideosId
                        }).ToList();
 
             if (OverLay.Count >= 3 && BackGround.Count > 0)
