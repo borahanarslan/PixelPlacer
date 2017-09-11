@@ -15,9 +15,10 @@ namespace PixelPlacer.Models
         public int ProjectId { get; set; }
         public Project Project { get; set; }
 
-        [Required]
         public int VideoId { get; set; }
         public Video Video { get; set; }
+
+        public virtual ApplicationUser User { get; set; }
 
         public int XPositition { get; set; }
 

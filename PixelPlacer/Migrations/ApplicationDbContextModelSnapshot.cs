@@ -179,7 +179,6 @@ namespace PixelPlacer.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Title")
-                        .IsRequired()
                         .HasMaxLength(50);
 
                     b.Property<string>("UserId");
@@ -198,6 +197,8 @@ namespace PixelPlacer.Migrations
 
                     b.Property<int>("ProjectId");
 
+                    b.Property<string>("UserId");
+
                     b.Property<int>("VideoId");
 
                     b.Property<int>("XPositition");
@@ -207,6 +208,8 @@ namespace PixelPlacer.Migrations
                     b.HasKey("ProjectVideosId");
 
                     b.HasIndex("ProjectId");
+
+                    b.HasIndex("UserId");
 
                     b.HasIndex("VideoId");
 
@@ -231,8 +234,7 @@ namespace PixelPlacer.Migrations
                     b.Property<string>("VideoTitle")
                         .IsRequired();
 
-                    b.Property<int?>("VideoTypeId")
-                        .IsRequired();
+                    b.Property<int>("VideoTypeId");
 
                     b.HasKey("VideoId");
 
@@ -306,6 +308,10 @@ namespace PixelPlacer.Migrations
                         .WithMany("ProjectVideos")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("PixelPlacer.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
 
                     b.HasOne("PixelPlacer.Models.Video", "Video")
                         .WithMany()

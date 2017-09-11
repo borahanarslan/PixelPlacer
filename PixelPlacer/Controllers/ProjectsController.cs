@@ -53,16 +53,17 @@ namespace PixelPlacer.Controllers
             return View(project);
         }
 
-        public IActionResult NewProjectDisplay()
+        public async Task<IActionResult> NewProjectDisplay()
         {
-            VideoTypesViewModel model = new VideoTypesViewModel(_context);
+            var user = await GetCurrentUserAsync();
+            VideoTypesViewModel model = new VideoTypesViewModel(_context, user);
             return View(model);
         }
 
-       
+
         //GET: Projects/Create
         [HttpGet]
-        public async Task<IActionResult> RetrieveVideo(int id)
+        public async Task<IActionResult> AddVideo(int id)
         {
             var user = await GetCurrentUserAsync();
             CreateNewProjectViewModel model = new CreateNewProjectViewModel(_context, user, id);
@@ -72,36 +73,34 @@ namespace PixelPlacer.Controllers
         // POST: Projects/Create       
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> RetrieveVideo(CreateNewProjectViewModel model, int videoId)
+        public async Task<IActionResult> AddVideos(int id)
         {
-            ModelState.Remove("Project.Title");
             var user = await GetCurrentUserAsync();
-            var video = await _context.Video.SingleOrDefaultAsync(v => v.VideoId == videoId);
+            var video = await _context.Video.SingleOrDefaultAsync(v => v.VideoId == id);
 
             var currentProject = await _context.Project
                 .SingleOrDefaultAsync(m => m.User == user && m.Title == null);
 
             if (currentProject == null)
             {
+                ModelState.Remove("Project.Title");
                 Project project = new Project() { User = user };
                 _context.Project.Add(project);
-                ProjectVideos projectVideos = new ProjectVideos() { VideoId = video.VideoId, ProjectId = project.ProjectId };
+                ProjectVideos projectVideos = new ProjectVideos() { VideoId = video.VideoId, ProjectId = project.ProjectId, User = user };
                 _context.ProjectVideos.Add(projectVideos);
                 await _context.SaveChangesAsync();
-                return View(model);
+                return RedirectToAction("NewProjectDisplay", "Projects");
             }
             else {
-                ProjectVideos pv = new ProjectVideos() { VideoId = video.VideoId, ProjectId = currentProject.ProjectId };
+                ProjectVideos pv = new ProjectVideos() { VideoId = video.VideoId, ProjectId = currentProject.ProjectId , User = user};
                 _context.ProjectVideos.Add(pv);
                 await _context.SaveChangesAsync();              
             }
-            return View(model);
+
+            return RedirectToAction("NewProjectDisplay", "Projects");
         }
 
-             
-
-
-
+            
 
         // GET: Projects/Edit/5
         public async Task<IActionResult> Edit(int? id)

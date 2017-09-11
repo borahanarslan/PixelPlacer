@@ -4,7 +4,7 @@
     ViewData["Title"] = "Create";
 }
 
-<h2>Create</h2>
+<h2>Select a Video to Add</h2>
 
 <div class="row">
 
@@ -13,9 +13,12 @@
         <div class="col-md-4">
             <br /><br />
             <p> @item.VideoTitle</p>
-            <a>
+            
+            <form asp-controller="Projects" asp-action="AddVideos" >
+                <input type="hidden" value="@item.VideoId" name="id"/>
                 <img src=@item.Thumbnail>
-            </a>
+                <input type="submit" value="Add Me" class="btn" />
+            </form> 
         </div>
      }
 </div>

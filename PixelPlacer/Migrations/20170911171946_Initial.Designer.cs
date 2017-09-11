@@ -8,7 +8,7 @@ using PixelPlacer.Data;
 namespace PixelPlacer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170910202845_Initial")]
+    [Migration("20170911171946_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -180,7 +180,6 @@ namespace PixelPlacer.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Title")
-                        .IsRequired()
                         .HasMaxLength(50);
 
                     b.Property<string>("UserId");
@@ -199,6 +198,8 @@ namespace PixelPlacer.Migrations
 
                     b.Property<int>("ProjectId");
 
+                    b.Property<string>("UserId");
+
                     b.Property<int>("VideoId");
 
                     b.Property<int>("XPositition");
@@ -208,6 +209,8 @@ namespace PixelPlacer.Migrations
                     b.HasKey("ProjectVideosId");
 
                     b.HasIndex("ProjectId");
+
+                    b.HasIndex("UserId");
 
                     b.HasIndex("VideoId");
 
@@ -221,8 +224,6 @@ namespace PixelPlacer.Migrations
 
                     b.Property<bool>("IsStock");
 
-                    b.Property<int?>("ProjectId");
-
                     b.Property<string>("Thumbnail");
 
                     b.Property<string>("UserId")
@@ -234,12 +235,9 @@ namespace PixelPlacer.Migrations
                     b.Property<string>("VideoTitle")
                         .IsRequired();
 
-                    b.Property<int?>("VideoTypeId")
-                        .IsRequired();
+                    b.Property<int>("VideoTypeId");
 
                     b.HasKey("VideoId");
-
-                    b.HasIndex("ProjectId");
 
                     b.HasIndex("UserId");
 
@@ -308,9 +306,13 @@ namespace PixelPlacer.Migrations
             modelBuilder.Entity("PixelPlacer.Models.ProjectVideos", b =>
                 {
                     b.HasOne("PixelPlacer.Models.Project", "Project")
-                        .WithMany()
+                        .WithMany("ProjectVideos")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("PixelPlacer.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
 
                     b.HasOne("PixelPlacer.Models.Video", "Video")
                         .WithMany()
@@ -320,10 +322,6 @@ namespace PixelPlacer.Migrations
 
             modelBuilder.Entity("PixelPlacer.Models.Video", b =>
                 {
-                    b.HasOne("PixelPlacer.Models.Project")
-                        .WithMany("Videos")
-                        .HasForeignKey("ProjectId");
-
                     b.HasOne("PixelPlacer.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")

@@ -11,7 +11,6 @@ namespace PixelPlacer.Models
         [Key]
         public int ProjectId { get; set; }
 
-        [Required]
         [Display(Name = "Project Title")]
         [MaxLength(50), MinLength(1)]
         public string Title { get; set; }

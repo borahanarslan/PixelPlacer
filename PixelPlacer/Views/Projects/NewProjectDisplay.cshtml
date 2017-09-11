@@ -11,7 +11,7 @@
         if (type.VideoTypeId == 1)
         {
             <div class="col-md-offset-4 col-md-2">
-                <a asp-controller="Projects" asp-action="RetrieveVideo" asp-route-id="@type.VideoTypeId" class="btn btn-default">
+                <a asp-controller="Projects" asp-action="AddVideo" asp-route-id="@type.VideoTypeId" class="btn btn-default">
                     Add BackGround
                 </a>
             </div>       
@@ -19,7 +19,7 @@
         else { 
 
             <div class="col-md-2">
-                <a asp-controller="Projects" asp-action="RetrieveVideo" asp-route-id="@type.VideoTypeId" class="btn btn-default">
+                <a asp-controller="Projects" asp-action="AddVideo" asp-route-id="@type.VideoTypeId" class="btn btn-default">
                     Add Green Screen
                 </a>
             </div>
@@ -27,6 +27,30 @@
 
     }
 </div>
+<div class="row">
+    @foreach (var item in Model.BackGround)
+    {   <div class="col-lg-8">
+        <h3>Background Video</h3>
+        <div id="vid-1">
+            <video width="500" controls Autoplay="autoplay" loop="loop" type="video/mp4" src=@item.VFilePath></video>
+        </div>
+    </div>
+    }
+    <div class="col-lg-4">
+        <div class="row">
+            @foreach (var item in Model.OverLay)
+            {
+                <div></div>
+                <h3>Overlay</h3>
+                <div id="vid-1">
+                    <video width="200" controls Autoplay="autoplay" loop="loop" type="video/mp4" src=@item.VFilePath></video>
+                </div>
+            }
+        </div>
+    </div>
+
+</div>
+
 <div>
     <a asp-controller="Home" asp-action="Index">Back</a>
 </div>

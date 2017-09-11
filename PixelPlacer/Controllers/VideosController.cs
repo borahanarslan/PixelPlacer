@@ -104,7 +104,7 @@ namespace PixelPlacer.Controllers
                 using (var fileStream = new FileStream(videoPath, FileMode.Create))
                 {
                     await videoFile.CopyToAsync(fileStream);
-                    upload.Video.VideoFilePath = videoPath;
+                    upload.Video.VideoFilePath = "..\\..\\video\\" + newFileName;
                 }
 
                 // arguments to pass to FFMPEG Process

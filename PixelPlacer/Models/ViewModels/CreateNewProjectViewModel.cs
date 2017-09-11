@@ -10,9 +10,9 @@ namespace PixelPlacer.Models.ViewModels
 {
     public class CreateNewProjectViewModel
     {
-        //public Video Video { get; set; }
+        public Video Video { get; set; }
 
-        //public Project Project { get; set; }
+        public Project Project { get; set; }
 
         public IEnumerable<Video> VideoList { get; set; }
 
