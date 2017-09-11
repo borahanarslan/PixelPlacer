@@ -196,9 +196,7 @@ namespace PixelPlacer.Migrations
                     b.Property<int>("ProjectVideosId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("ProjectId");
-
-                    b.Property<int>("SavedProjectId");
+                    b.Property<int>("ProjectId");
 
                     b.Property<int>("VideoId");
 
@@ -306,7 +304,8 @@ namespace PixelPlacer.Migrations
                 {
                     b.HasOne("PixelPlacer.Models.Project", "Project")
                         .WithMany("ProjectVideos")
-                        .HasForeignKey("ProjectId");
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("PixelPlacer.Models.Video", "Video")
                         .WithMany()

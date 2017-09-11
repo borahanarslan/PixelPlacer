@@ -1,0 +1,32 @@
+@model PixelPlacer.Models.ViewModels.VideoTypesViewModel
+
+@{
+    ViewData["Title"] = "ProjectPageDisplay";
+}
+
+<h2>Create a New Project</h2>
+<div asp-controller ="Projects" asp-action="VideoTypes"class="row">
+    @foreach (var type in @Model.VideoTypes)
+    {
+        if (type.VideoTypeId == 1)
+        {
+            <div class="col-md-offset-4 col-md-2">
+                <a asp-controller="Projects" asp-action="RetrieveVideo" asp-route-id="@type.VideoTypeId" class="btn btn-default">
+                    Add BackGround
+                </a>
+            </div>       
+        }
+        else { 
+
+            <div class="col-md-2">
+                <a asp-controller="Projects" asp-action="RetrieveVideo" asp-route-id="@type.VideoTypeId" class="btn btn-default">
+                    Add Green Screen
+                </a>
+            </div>
+        }
+
+    }
+</div>
+<div>
+    <a asp-controller="Home" asp-action="Index">Back</a>
+</div>

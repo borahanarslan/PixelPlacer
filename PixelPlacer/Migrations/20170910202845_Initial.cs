@@ -187,6 +187,8 @@ namespace PixelPlacer.Migrations
                 {
                     VideoId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    IsStock = table.Column<bool>(nullable: false),
+                    ProjectId = table.Column<int>(nullable: true),
                     Thumbnail = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: false),
                     VideoFilePath = table.Column<string>(nullable: false),
@@ -196,6 +198,12 @@ namespace PixelPlacer.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Video", x => x.VideoId);
+                    table.ForeignKey(
+                        name: "FK_Video_Project_ProjectId",
+                        column: x => x.ProjectId,
+                        principalTable: "Project",
+                        principalColumn: "ProjectId",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Video_AspNetUsers_UserId",
                         column: x => x.UserId,
@@ -216,8 +224,7 @@ namespace PixelPlacer.Migrations
                 {
                     ProjectVideosId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ProjectId = table.Column<int>(nullable: true),
-                    SavedProjectId = table.Column<int>(nullable: false),
+                    ProjectId = table.Column<int>(nullable: false),
                     VideoId = table.Column<int>(nullable: false),
                     XPositition = table.Column<int>(nullable: false),
                     YPosition = table.Column<int>(nullable: false)
@@ -230,7 +237,7 @@ namespace PixelPlacer.Migrations
                         column: x => x.ProjectId,
                         principalTable: "Project",
                         principalColumn: "ProjectId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ProjectVideos_Video_VideoId",
                         column: x => x.VideoId,
@@ -292,6 +299,11 @@ namespace PixelPlacer.Migrations
                 column: "VideoId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Video_ProjectId",
+                table: "Video",
+                column: "ProjectId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Video_UserId",
                 table: "Video",
                 column: "UserId");
@@ -326,16 +338,16 @@ namespace PixelPlacer.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Project");
-
-            migrationBuilder.DropTable(
                 name: "Video");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Project");
 
             migrationBuilder.DropTable(
                 name: "VideoType");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
         }
     }
 }

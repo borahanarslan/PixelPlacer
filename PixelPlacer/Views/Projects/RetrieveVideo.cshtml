@@ -1,0 +1,34 @@
+@model PixelPlacer.Models.ViewModels.CreateNewProjectViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<div class="row">
+
+    @foreach (var item in Model.VideoList)
+    {
+        <div class="col-md-4">
+            <br /><br />
+            <p> @item.VideoTitle</p>
+            <a>
+                <img src=@item.Thumbnail>
+            </a>
+        </div>
+     }
+</div>
+@*<div id="vid-1">
+    <video width="500" controls Autoplay="autoplay" loop="loop" type="video/mp4" src=@Model.Path></video>
+</div>*@
+
+
+<br /><br />
+<div>
+    <a asp-controller="Projects" asp-action="NewProjectDisplay">Back</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

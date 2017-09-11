@@ -24,11 +24,11 @@ namespace PixelPlacer.Models
         public bool IsStock { get; set; }
 
         [Required]
-        public virtual ApplicationUser User { get; set; }
+        public ApplicationUser User { get; set; }
 
         [Required]
         [Display(Name = "Video Type")]
-        public int? VideoTypeId { get; set; }
+        public int VideoTypeId { get; set; }
         public VideoType VideoType { get; set; }
     }
 }

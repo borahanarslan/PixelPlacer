@@ -10,21 +10,18 @@ namespace PixelPlacer.Models.ViewModels
 {
     public class CreateNewProjectViewModel
     {
-        public Video Video { get; set; }
+        //public Video Video { get; set; }
 
-        public Project Project { get; set; }
+        //public Project Project { get; set; }
 
         public IEnumerable<Video> VideoList { get; set; }
 
-        public IEnumerable<Video> OverLayList { get; set; }
-
-        public CreateNewProjectViewModel(ApplicationDbContext context, ApplicationUser user)
+        public CreateNewProjectViewModel(ApplicationDbContext context, ApplicationUser user, int id)
         {
-            VideoList = context.Video.Where(v => v.User == user || v.IsStock == true && v.VideoTitle == "BackGround").ToList();
-
-            OverLayList = context.Video.Where(v => v.User == user || v.IsStock == true && v.VideoTitle == "Green Screen").ToList();
+            VideoList = context.Video.Where(v => v.User == user && v.VideoTypeId == id).ToList();
         }
 
+        public CreateNewProjectViewModel(ApplicationDbContext contex, ApplicationUser user) { }
                 
     }
 }

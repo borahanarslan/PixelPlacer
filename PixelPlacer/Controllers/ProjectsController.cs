@@ -53,24 +53,30 @@ namespace PixelPlacer.Controllers
             return View(project);
         }
 
-        // GET: Projects/Create
-        //public async Task<IActionResult> RetrieveBackGroundVideo(int videoId)
-        //{
-        //    var user = await GetCurrentUserAsync();
-        //    CreateNewProjectViewModel model = new CreateNewProjectViewModel(_context, user);
-        //    return View(model);
-        //}
+        public IActionResult NewProjectDisplay()
+        {
+            VideoTypesViewModel model = new VideoTypesViewModel(_context);
+            return View(model);
+        }
+
+       
+        //GET: Projects/Create
+        [HttpGet]
+        public async Task<IActionResult> RetrieveVideo(int id)
+        {
+            var user = await GetCurrentUserAsync();
+            CreateNewProjectViewModel model = new CreateNewProjectViewModel(_context, user, id);
+            return View(model);
+        }
 
         // POST: Projects/Create       
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateProject(int videoId)
+        public async Task<IActionResult> RetrieveVideo(CreateNewProjectViewModel model, int videoId)
         {
             ModelState.Remove("Project.Title");
             var user = await GetCurrentUserAsync();
-            var model = new CreateNewProjectViewModel(_context, user);
             var video = await _context.Video.SingleOrDefaultAsync(v => v.VideoId == videoId);
-
 
             var currentProject = await _context.Project
                 .SingleOrDefaultAsync(m => m.User == user && m.Title == null);
@@ -79,17 +85,17 @@ namespace PixelPlacer.Controllers
             {
                 Project project = new Project() { User = user };
                 _context.Project.Add(project);
-                ProjectVideos projectVideos = new ProjectVideos() { VideoId = video.VideoId, SavedProjectId = project.ProjectId };
+                ProjectVideos projectVideos = new ProjectVideos() { VideoId = video.VideoId, ProjectId = project.ProjectId };
                 _context.ProjectVideos.Add(projectVideos);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("SelectOverlay", "Projects", new { projId = project.ProjectId });
+                return View(model);
             }
             else {
-                ProjectVideos pv = new ProjectVideos() { VideoId = video.VideoId, SavedProjectId = currentProject.ProjectId };
+                ProjectVideos pv = new ProjectVideos() { VideoId = video.VideoId, ProjectId = currentProject.ProjectId };
                 _context.ProjectVideos.Add(pv);
                 await _context.SaveChangesAsync();              
             }
-            return RedirectToAction("SelectOverlay", "Project", new { projId = currentProject.ProjectId });
+            return View(model);
         }
 
              

@@ -2,12 +2,26 @@
     ViewData["Title"] = "Home Page";
 }
 
+<h2>My Profile</h2>
+<hr />
 
-<div>
-    <ul>
-        <li><a asp-controller="Projects" asp-action="Index">My Projects</a></li>
-        <li><a asp-controller="Projects" asp-action="Create">Create a New Video Project</a></li>
-        <li><a asp-controller="Videos" asp-action="Upload">Upload a Video</a></li>
-        <li><a asp-controller="Videos" asp-action="Index">View Uploads</a></li>
-    </ul>
+<div class="form-horizontal">
+    <div class="form-group">
+        <a asp-controller="Projects" asp-action="Index">My Projects</a>
+    </div>
+</div>
+<div class="form-horizontal">
+    <div class="form-group">
+        <a asp-controller="Projects" asp-action="NewProjectDisplay">Create a New Video Project</a>        
+    </div>
+</div>
+<div class="form-horizontal">
+    <div class="form-group">
+        <a asp-controller="Videos" asp-action="Upload">Upload a Video</a>    
+    </div>
+</div>
+<div class="form-horizontal">
+    <div class="form-group">
+        <a asp-controller="Videos" asp-action="Index">View Uploads</a>    
+    </div>
 </div>

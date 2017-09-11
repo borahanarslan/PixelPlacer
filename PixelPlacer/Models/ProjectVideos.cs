@@ -12,7 +12,7 @@ namespace PixelPlacer.Models
         public int ProjectVideosId { get; set; }
 
         [Required]
-        public int SavedProjectId { get; set; }
+        public int ProjectId { get; set; }
         public Project Project { get; set; }
 
         [Required]

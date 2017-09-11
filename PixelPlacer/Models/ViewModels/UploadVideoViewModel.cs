@@ -12,7 +12,7 @@ namespace PixelPlacer.Models.ViewModels
     {
         public Video Video { get; set; }
 
-        public List<IFormFile> UserVideo { get; set; } = new List<IFormFile>();
+        public IFormFile UserVideo { get; set; }
 
         public List<SelectListItem> VideoTypeList { get; set; }
 
