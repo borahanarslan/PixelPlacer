@@ -100,7 +100,23 @@ namespace PixelPlacer.Controllers
             return RedirectToAction("NewProjectDisplay", "Projects");
         }
 
-            
+        public async Task<IActionResult> AddTitle(string ProjectTitle)
+        {
+            var user = await GetCurrentUserAsync();
+            if (ProjectTitle == null)
+            {
+                return NotFound();
+            }
+            else {
+                var project = _context.Project.SingleOrDefault(v => v.Title == null && v.User == user);
+                project.Title = ProjectTitle;
+                _context.Project.Update(project);
+                await _context.SaveChangesAsync();
+
+            }
+
+            return View("Index", "Home");
+        }
 
         // GET: Projects/Edit/5
         public async Task<IActionResult> Edit(int? id)

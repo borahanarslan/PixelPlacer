@@ -31,8 +31,10 @@
     @foreach (var item in Model.BackGround)
     {   <div class="col-lg-8">
         <h3>Background Video</h3>
-        <div id="vid-1">
-            <video width="500" controls Autoplay="autoplay" loop="loop" type="video/mp4" src=@item.VFilePath></video>
+        <div id="vid-1" ondrop="drop(event)" ondragover="allowDrop(event)" style="position:relative;">
+            
+            <video id="background-video" width="500" controls Autoplay="autoplay" loop="loop" type="video/mp4" src=@item.VFilePath></video>
+            
         </div>
     </div>
     }
@@ -40,16 +42,49 @@
         <div class="row overlayVideo">
             @foreach (var item in Model.OverLay)
             {
-                <div></div>
-                <h3>Overlay</h3>
-                <div id="vid-1">
-                    <video width="200" controls Autoplay="autoplay" loop="loop" type="video/mp4" src=@item.VFilePath></video>
+                <div id="canvas-@item.ProjVidId">
+                    <script>createCanvas("canvas-@item.ProjVidId", "@item.VFilePath.Replace(@"\", @"\\")", "@item.Thumb.Replace(@"\", @"\\")");</script>
+                    @*<canvas id="canvas-@item.ProjVidId"></canvas>*@
                 </div>
-                <canvas id="canvas-@item.ProjVidId"></canvas>
             }
         </div>
     </div>
 
+    @if (Model.BackGround.Count > 0 || Model.OverLay.Count > 0) { 
+   
+    <div class="container">
+        <!-- Trigger the modal with a button -->
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Save Project</button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Give Your Project a Name</h4>
+                    </div>
+                    <form>  
+                        <br /><br />
+                    <div class="form-group">
+                        <label asp-for="@Model.ProjectTitle" class="col-md-2 control-label">Title</label>
+
+                        <div class="col-md-10">
+                            <input asp-for="@Model.ProjectTitle" class="form-control" />
+                            <span asp-validation-for="@Model.ProjectTitle" class="text-danger"></span>
+                        </div>
+                    </div> 
+                       <br /><br />
+                    <div class="modal-footer">
+                            <input type="submit" asp-controller="Projects" asp-action="AddTitle" value="Save" class="btn btn-primary" />
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
 </div>
 
 <div>

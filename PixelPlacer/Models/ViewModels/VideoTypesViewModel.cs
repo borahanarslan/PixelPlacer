@@ -9,11 +9,13 @@ namespace PixelPlacer.Models.ViewModels
 {
     public class VideoTypesViewModel
     {
+        public string ProjectTitle { get; set; }
+
         public List<VideoType> VideoTypes { get; set; }
 
         public List<BackGroundClass> BackGround { get; set; }
 
-        public IEnumerable<Video> OverLayVideos { get; set; }
+        //public IEnumerable<Video> OverLayVideos { get; set; }
 
         public List<OverlayClass> OverLay { get; set; }
 
@@ -59,7 +61,8 @@ namespace PixelPlacer.Models.ViewModels
                            VFilePath = v.VideoFilePath,
                            VTypeId = v.VideoTypeId,
                            ProjId = pv.ProjectId,
-                           ProjVidId = pv.ProjectVideosId
+                           ProjVidId = pv.ProjectVideosId,
+                           Thumb = v.Thumbnail
                        }).ToList();
 
             if (OverLay.Count >= 3 && BackGround.Count > 0)

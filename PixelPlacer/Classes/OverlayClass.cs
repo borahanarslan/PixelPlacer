@@ -13,5 +13,6 @@ namespace PixelPlacer.Classes
         public int VTypeId { get; set; }
         public int ProjId { get; set; }
         public int ProjVidId { get; set; }
+        public string Thumb { get; set; }
     }
 }
