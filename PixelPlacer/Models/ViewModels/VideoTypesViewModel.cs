@@ -17,8 +17,6 @@ namespace PixelPlacer.Models.ViewModels
 
         public IEnumerable<SaveProjectClass> ProjectClass { get; set; }
 
-        //public IEnumerable<Video> OverLayVideos { get; set; }
-
         public List<OverlayClass> OverLay { get; set; }
 
         public VideoTypesViewModel(ApplicationDbContext context, ApplicationUser user)
@@ -28,10 +26,11 @@ namespace PixelPlacer.Models.ViewModels
             VideoTypes = context.VideoType.Where(vt => vt.VideoTypeId > 0).ToList();
 
             BackGround = (from v in context.Video
-                       where v.User == user && v.VideoTypeId == 1
+                       where v.User == user 
                        join pv in context.ProjectVideos
                        on v.VideoId equals pv.VideoId
                        where pv.User == user
+                       && pv.BackGround == true
                        join p in context.Project
                        on pv.ProjectId equals p.ProjectId
                        where p.Title == null
@@ -54,7 +53,8 @@ namespace PixelPlacer.Models.ViewModels
                        where v.User == user && v.VideoTypeId == 2
                        join pv in context.ProjectVideos
                        on v.VideoId equals pv.VideoId
-                       where pv.User == user
+                       where pv.User == user &&
+                       pv.BackGround == false
                        join p in context.Project
                        on pv.ProjectId equals p.ProjectId
                        where p.Title == null

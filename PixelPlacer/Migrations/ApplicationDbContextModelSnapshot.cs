@@ -195,6 +195,8 @@ namespace PixelPlacer.Migrations
                     b.Property<int>("ProjectVideosId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("BackGround");
+
                     b.Property<int>("ProjectId");
 
                     b.Property<string>("UserId");

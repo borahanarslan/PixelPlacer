@@ -217,6 +217,7 @@ namespace PixelPlacer.Migrations
                 {
                     ProjectVideosId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    BackGround = table.Column<bool>(nullable: false),
                     ProjectId = table.Column<int>(nullable: false),
                     UserId = table.Column<string>(nullable: true),
                     VideoId = table.Column<int>(nullable: false),

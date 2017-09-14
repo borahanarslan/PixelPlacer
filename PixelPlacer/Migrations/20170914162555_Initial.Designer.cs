@@ -8,7 +8,7 @@ using PixelPlacer.Data;
 namespace PixelPlacer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170914040523_Initial")]
+    [Migration("20170914162555_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -195,6 +195,8 @@ namespace PixelPlacer.Migrations
                 {
                     b.Property<int>("ProjectVideosId")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("BackGround");
 
                     b.Property<int>("ProjectId");
 

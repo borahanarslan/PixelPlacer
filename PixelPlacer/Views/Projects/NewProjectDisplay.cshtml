@@ -11,7 +11,7 @@
         if (type.VideoTypeId == 1)
         {
             <div class="col-md-offset-4 col-md-2">
-                <a asp-controller="Projects" asp-action="AddVideo" asp-route-id="@type.VideoTypeId" class="btn btn-default">
+                <a asp-controller="Projects" asp-action="AddBackGroundVideo" asp-route-id="@type.VideoTypeId" class="btn btn-default">
                     Add BackGround
                 </a>
             </div>       
@@ -19,7 +19,7 @@
         else { 
 
             <div class="col-md-2">
-                <a asp-controller="Projects" asp-action="AddVideo" asp-route-id="@type.VideoTypeId" class="btn btn-default">
+                <a asp-controller="Projects" asp-action="AddOverLayVideo" asp-route-id="@type.VideoTypeId" class="btn btn-default">
                     Add Green Screen
                 </a>
             </div>

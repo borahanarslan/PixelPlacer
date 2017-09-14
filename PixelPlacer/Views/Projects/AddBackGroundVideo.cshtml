@@ -9,22 +9,20 @@
 <div class="row">
 
     @foreach (var item in Model.VideoList)
-    {
+        {
         <div class="col-md-4">
             <br /><br />
             <p> @item.VideoTitle</p>
-            
-            <form asp-controller="Projects" asp-action="AddVideos" >
-                <input type="hidden" value="@item.VideoId" name="id"/>
+
+            <form asp-controller="Projects" asp-action="AddVideos">
+                <input type="hidden" value="@item.VideoId" name="id" />
                 <img src=@item.Thumbnail>
                 <input type="submit" value="Add Me" class="btn" />
-            </form> 
+            </form>
         </div>
-     }
+        }
 </div>
-@*<div id="vid-1">
-    <video width="500" controls Autoplay="autoplay" loop="loop" type="video/mp4" src=@Model.Path></video>
-</div>*@
+
 
 
 <br /><br />

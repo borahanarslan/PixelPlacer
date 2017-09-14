@@ -1,0 +1,32 @@
+@model PixelPlacer.Models.ViewModels.CreateNewProjectViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Select a Video to Add</h2>
+
+<div class="row">
+    @foreach (var item in Model.OverLayList)
+    {
+        <div class="col-md-4">
+            <br /><br />
+            <p> @item.VideoTitle</p>
+
+            <form asp-controller="Projects" asp-action="AddVideos">
+                <input type="hidden" value="@item.VideoId" name="id" />
+                <img src=@item.Thumbnail>
+                <input type="submit" value="Add Me" class="btn" />
+            </form>
+        </div>
+    }
+</div>
+
+<br /><br />
+<div>
+    <a asp-controller="Projects" asp-action="NewProjectDisplay">Back</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

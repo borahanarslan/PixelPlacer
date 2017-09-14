@@ -65,7 +65,16 @@ namespace PixelPlacer.Controllers
 
         //GET: Projects/Create
         [HttpGet]
-        public async Task<IActionResult> AddVideo(int id)
+        public async Task<IActionResult> AddBackGroundVideo(int id)
+        {
+            var user = await GetCurrentUserAsync();
+            CreateNewProjectViewModel model = new CreateNewProjectViewModel(_context, user, id);
+            return View(model);
+        }
+
+        //GET: Projects/Create
+        [HttpGet]
+        public async Task<IActionResult> AddOverLayVideo(int id)
         {
             var user = await GetCurrentUserAsync();
             CreateNewProjectViewModel model = new CreateNewProjectViewModel(_context, user, id);
@@ -88,7 +97,7 @@ namespace PixelPlacer.Controllers
                 ModelState.Remove("Project.Title");
                 Project project = new Project() { User = user };
                 _context.Project.Add(project);
-                ProjectVideos projectVideos = new ProjectVideos() { VideoId = video.VideoId, ProjectId = project.ProjectId, User = user };
+                ProjectVideos projectVideos = new ProjectVideos() { VideoId = video.VideoId, ProjectId = project.ProjectId, User = user, BackGround = true };
                 _context.ProjectVideos.Add(projectVideos);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("NewProjectDisplay", "Projects");
@@ -126,7 +135,7 @@ namespace PixelPlacer.Controllers
                 }
                 await _context.SaveChangesAsync();
             }
-                return Json(new { success = true });
+            return Json(new { result = "Redirect", url = Url.Action("Index", "Home") });
 
             //return RedirectToAction("Index", "Home");
         }
