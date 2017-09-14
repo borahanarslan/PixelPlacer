@@ -55,6 +55,8 @@ namespace PixelPlacer.Controllers
             return View(project);
         }
 
+        // Controller to display all videos on Create New Project Option
+        // Used on NewProjectDisplay.cshtml in Projects View
         public async Task<IActionResult> NewProjectDisplay()
         {
             var user = await GetCurrentUserAsync();
@@ -63,7 +65,9 @@ namespace PixelPlacer.Controllers
         }
 
 
-        //GET: Projects/Create
+        //GET: Projects/AddBackGroundVideo
+        // Displays video that meet contraints to display a background video
+        // Accepts the VideoId of a single selected video
         [HttpGet]
         public async Task<IActionResult> AddBackGroundVideo(int id)
         {
@@ -72,7 +76,9 @@ namespace PixelPlacer.Controllers
             return View(model);
         }
 
-        //GET: Projects/Create
+        //GET: Projects/AddOverLayVideo
+        // Displays videos that meet contraints to display a Green Screen video
+        // Accepts the VideoId of a List of selected videos up to 3
         [HttpGet]
         public async Task<IActionResult> AddOverLayVideo(int id)
         {
@@ -81,7 +87,12 @@ namespace PixelPlacer.Controllers
             return View(model);
         }
 
-        // POST: Projects/Create       
+        // POST: Projects/AddVideos 
+        // Accepts argument which is a VideoID
+        // Once Video is added a new Project is created and each video is added 
+        // to the ProjectVideo JT
+        // if an open Project exists(no title has been added on the Project Table)
+        // then the DB will update current existing Project and JT
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddVideos(int id)
@@ -111,6 +122,9 @@ namespace PixelPlacer.Controllers
             return RedirectToAction("NewProjectDisplay", "Projects");
         }
 
+        // Ajax post request from javascript site.js file
+        // Addes Title to a Project and saves Coordinates for Videos 
+        // in ProjectVideo Table
         [HttpPost]
         public async Task<IActionResult> SaveProject(SaveProjectViewModel project)
         {
@@ -136,8 +150,6 @@ namespace PixelPlacer.Controllers
                 await _context.SaveChangesAsync();
             }
             return Ok(new { response = "Go baby go" });
-
-            //return RedirectToAction("Index", "Home");
         }
 
 
