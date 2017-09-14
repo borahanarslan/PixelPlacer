@@ -135,7 +135,7 @@ namespace PixelPlacer.Controllers
                 }
                 await _context.SaveChangesAsync();
             }
-            return Json(new { result = "Redirect", url = Url.Action("Index", "Home") });
+            return Ok(new { response = "Go baby go" });
 
             //return RedirectToAction("Index", "Home");
         }

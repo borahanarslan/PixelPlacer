@@ -32,8 +32,9 @@
     {   <div class="col-lg-8">
         <h3>Background Video</h3>
         <div id="vid-1" ondrop="drop(event)" ondragover="allowDrop(event)" style="position:relative;">
+            <script>createBackGroundCanvas("@item.VFilePath.Replace(@"\", @"\\")")</script> 
             
-            <video id="background-video" width="100%" controls Autoplay="autoplay" loop="loop" type="video/mp4" src=@item.VFilePath></video>
+            @*<video id="background-video" width="100%" controls Autoplay="autoplay" loop="loop" type="video/mp4" src=@item.VFilePath></video>*@
             
         </div>
     </div>
@@ -46,7 +47,6 @@
                 <div class="row">
                     <div id="canvas-@item.ProjVidId" class="col-sm-5">
                         <script>createCanvas("canvas-@item.ProjVidId", "@item.VFilePath.Replace(@"\", @"\\")", "@item.Thumb.Replace(@"\", @"\\")");</script>
-                        @*<canvas id="canvas-@item.ProjVidId"></canvas>*@
                     </div>
                     <div class="col-sm-offset-4 col-sm-3">
                        <div>@item.VTitle</div> 
