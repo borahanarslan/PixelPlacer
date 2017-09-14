@@ -10,6 +10,7 @@ using PixelPlacer.Models;
 using Microsoft.AspNetCore.Identity;
 using PixelPlacer.Models.ViewModels;
 using PixelPlacer.Classes;
+using System.Net;
 
 namespace PixelPlacer.Controllers
 {
@@ -105,29 +106,29 @@ namespace PixelPlacer.Controllers
         public async Task<IActionResult> SaveProject(SaveProjectViewModel project)
         {
             var user = await GetCurrentUserAsync();
-            if (project == null)
+            if (!ModelState.IsValid)
             {
                 return NotFound();
             }
-            else
+            if (project.Title != null)
             {
                 var p = _context.Project.SingleOrDefault(v => v.Title == null && v.User == user);
                 p.Title = project.Title;
                 _context.Project.Update(p);
-                await _context.SaveChangesAsync();
-
+                
                 foreach (var item in project.ProjectClass)
                 {
                     var projects = _context.ProjectVideos.SingleOrDefault(pv => pv.ProjectVideosId == item.ProjectVideosId);
                     projects.XPosition = item.XPosition;
                     projects.YPosition = item.YPosition;
                     _context.ProjectVideos.Update(projects);
-                    await _context.SaveChangesAsync();
 
                 }
+                await _context.SaveChangesAsync();
             }
+                return Json(new { success = true });
 
-            return RedirectToAction("Index", "Home");
+            //return RedirectToAction("Index", "Home");
         }
 
 

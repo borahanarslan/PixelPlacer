@@ -144,7 +144,7 @@ namespace PixelPlacer.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            return View("Index", "Home");
+            return RedirectToAction("Index", "Home");
         }
         
 
