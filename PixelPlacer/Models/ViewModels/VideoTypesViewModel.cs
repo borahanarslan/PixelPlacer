@@ -15,12 +15,16 @@ namespace PixelPlacer.Models.ViewModels
 
         public List<BackGroundClass> BackGround { get; set; }
 
+        public IEnumerable<SaveProjectClass> ProjectClass { get; set; }
+
         //public IEnumerable<Video> OverLayVideos { get; set; }
 
         public List<OverlayClass> OverLay { get; set; }
 
         public VideoTypesViewModel(ApplicationDbContext context, ApplicationUser user)
         {
+            ProjectClass = new List<SaveProjectClass>();
+
             VideoTypes = context.VideoType.Where(vt => vt.VideoTypeId > 0).ToList();
 
             BackGround = (from v in context.Video

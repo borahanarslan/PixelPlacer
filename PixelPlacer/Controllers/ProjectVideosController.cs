@@ -7,17 +7,24 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PixelPlacer.Data;
 using PixelPlacer.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace PixelPlacer.Controllers
 {
     public class ProjectVideosController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private ApplicationUser _currentUser { get; set; }
 
-        public ProjectVideosController(ApplicationDbContext context)
+        public ProjectVideosController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
-            _context = context;    
+            _context = context;
+            _userManager = userManager;
         }
+
+        // This task retrieves the currently authenticated user
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
         // GET: ProjectVideos
         public async Task<IActionResult> Index()
@@ -68,6 +75,8 @@ namespace PixelPlacer.Controllers
             ViewData["VideoId"] = new SelectList(_context.Set<Video>(), "VideoId", "UserId", projectVideos.VideoId);
             return View(projectVideos);
         }
+
+
 
         // GET: ProjectVideos/Edit/5
         public async Task<IActionResult> Edit(int? id)

@@ -5,7 +5,7 @@
 }
 
 <h2>Create a New Project</h2>
-<div asp-controller ="Projects" asp-action="VideoTypes"class="row">
+<div asp-controller ="Projects" asp-action="VideoTypes" class="row">
     @foreach (var type in @Model.VideoTypes)
     {
         if (type.VideoTypeId == 1)
@@ -72,22 +72,20 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title">Give Your Project a Name</h4>
                     </div>
-                    <form>  
                         <br /><br />
                     <div class="form-group">
-                        <label asp-for="@Model.ProjectTitle" class="col-md-2 control-label">Title</label>
+                        <label class="col-md-2 control-label">Title</label>
 
                         <div class="col-md-10">
-                            <input asp-for="@Model.ProjectTitle" class="form-control" />
-                            <span asp-validation-for="@Model.ProjectTitle" class="text-danger"></span>
+                            <input id ="ProjectTitle" name="Title" class="form-control" />
+                            @*<span asp-validation-for="@Model.ProjectTitle" class="text-danger"></span>*@
                         </div>
                     </div> 
                        <br /><br />
                     <div class="modal-footer">
-                            <input type="submit" asp-controller="Projects" asp-action="AddTitle" value="Save" class="btn btn-primary" />
+                            <input type="button" value="Save" class="btn btn-primary" id="SaveButton"/>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
-                    </form>
                 </div>
             </div>
         </div>

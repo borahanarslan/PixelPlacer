@@ -9,6 +9,7 @@ using PixelPlacer.Data;
 using PixelPlacer.Models;
 using Microsoft.AspNetCore.Identity;
 using PixelPlacer.Models.ViewModels;
+using PixelPlacer.Classes;
 
 namespace PixelPlacer.Controllers
 {
@@ -100,26 +101,38 @@ namespace PixelPlacer.Controllers
             return RedirectToAction("NewProjectDisplay", "Projects");
         }
 
-        public async Task<IActionResult> AddTitle(string ProjectTitle)
+        [HttpPost]
+        public async Task<IActionResult> SaveProject(SaveProjectViewModel project)
         {
             var user = await GetCurrentUserAsync();
-            if (ProjectTitle == null)
+            if (project == null)
             {
                 return NotFound();
             }
-            else {
-                var project = _context.Project.SingleOrDefault(v => v.Title == null && v.User == user);
-                project.Title = ProjectTitle;
-                _context.Project.Update(project);
+            else
+            {
+                var p = _context.Project.SingleOrDefault(v => v.Title == null && v.User == user);
+                p.Title = project.Title;
+                _context.Project.Update(p);
                 await _context.SaveChangesAsync();
 
+                foreach (var item in project.ProjectClass)
+                {
+                    var projects = _context.ProjectVideos.SingleOrDefault(pv => pv.ProjectVideosId == item.ProjectVideosId);
+                    projects.XPosition = item.XPosition;
+                    projects.YPosition = item.YPosition;
+                    _context.ProjectVideos.Update(projects);
+                    await _context.SaveChangesAsync();
+
+                }
             }
 
-            return View("Index", "Home");
+            return RedirectToAction("Index", "Home");
         }
 
+
         // GET: Projects/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+    public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {

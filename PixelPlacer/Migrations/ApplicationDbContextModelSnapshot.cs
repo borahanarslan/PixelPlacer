@@ -201,7 +201,7 @@ namespace PixelPlacer.Migrations
 
                     b.Property<int>("VideoId");
 
-                    b.Property<int>("XPositition");
+                    b.Property<int>("XPosition");
 
                     b.Property<int>("YPosition");
 

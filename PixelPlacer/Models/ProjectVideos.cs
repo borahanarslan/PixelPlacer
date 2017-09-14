@@ -20,7 +20,7 @@ namespace PixelPlacer.Models
 
         public virtual ApplicationUser User { get; set; }
 
-        public int XPositition { get; set; }
+        public int XPosition { get; set; }
 
         public int YPosition { get; set; }
     }
