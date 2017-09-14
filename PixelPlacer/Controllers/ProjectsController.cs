@@ -69,10 +69,10 @@ namespace PixelPlacer.Controllers
         // Displays video that meet contraints to display a background video
         // Accepts the VideoId of a single selected video
         [HttpGet]
-        public async Task<IActionResult> AddBackGroundVideo(int id)
+        public async Task<IActionResult> AddBackGroundVideo()
         {
             var user = await GetCurrentUserAsync();
-            CreateNewProjectViewModel model = new CreateNewProjectViewModel(_context, user, id);
+            CreateNewProjectViewModel model = new CreateNewProjectViewModel(_context, user);
             return View(model);
         }
 
@@ -80,10 +80,10 @@ namespace PixelPlacer.Controllers
         // Displays videos that meet contraints to display a Green Screen video
         // Accepts the VideoId of a List of selected videos up to 3
         [HttpGet]
-        public async Task<IActionResult> AddOverLayVideo(int id)
+        public async Task<IActionResult> AddOverLayVideo()
         {
             var user = await GetCurrentUserAsync();
-            CreateNewProjectViewModel model = new CreateNewProjectViewModel(_context, user, id);
+            CreateNewProjectViewModel model = new CreateNewProjectViewModel(_context, user);
             return View(model);
         }
 

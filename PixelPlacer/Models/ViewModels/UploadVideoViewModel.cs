@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+// View Model used in VideosController for Upload Action
+// used in Upload.cshtml 
 namespace PixelPlacer.Models.ViewModels
 {
     public class UploadVideoViewModel
@@ -18,6 +20,7 @@ namespace PixelPlacer.Models.ViewModels
 
         public UploadVideoViewModel(ApplicationDbContext context)
         {
+            // create a drop down that displays video types
             Video = new Video();
             this.VideoTypeList = context.VideoType
                                .OrderBy(v => v.Category)

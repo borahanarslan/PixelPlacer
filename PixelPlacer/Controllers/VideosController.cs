@@ -22,7 +22,7 @@ namespace PixelPlacer.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
-        private IHostingEnvironment _environment;
+        private IHostingEnvironment _environment;// required to upload media sources
         private ApplicationUser _currentUser { get; set; }
 
         public VideosController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, IHostingEnvironment environment)
@@ -59,12 +59,11 @@ namespace PixelPlacer.Controllers
 
             return View(video);
         }
-
+        // User can upload a video
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> Upload()
         {
-
             UploadVideoViewModel upload = new UploadVideoViewModel(_context)
             {
                 Video = new Video()

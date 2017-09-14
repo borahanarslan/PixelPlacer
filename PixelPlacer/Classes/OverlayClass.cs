@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+// Class used in VideoTypesViewModel
 namespace PixelPlacer.Classes
 {
     public class OverlayClass

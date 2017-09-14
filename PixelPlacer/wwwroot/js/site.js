@@ -80,7 +80,7 @@ function OnMetaData(ev)
 
     var context = backCanvas.getContext("2d");
 
-    poop.appendChild(backCanvas);
+    backgroundParent.appendChild(backCanvas);
 
     // listen for video to play to start the drawing to canvas
     backVideo.addEventListener("play", function () {
