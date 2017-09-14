@@ -2,7 +2,7 @@ var xPos; // store mouse X position relative to container that is dragging
 var yPos; // store mouse Y position relative to container that is dragging
 var canvasX; // store X position of container that is dragging
 var canvasY; // store Y position of container that is dragging
-var poop; // parent container that background canvas element will be appended to
+var backgroundParent; // parent container background canvas element will be appended to
 var ProjectObject = {}; // Object that will be passed to Ajax call with Project Info
 ProjectObject.ProjectClass = []; // Object will hold IEnumerable of Objects within Array
 
@@ -43,12 +43,12 @@ function createBackGroundCanvas(filepath)
 function OnMetaData(ev)
 {
     // parent container that the Canvas element will append to 
-    poop = document.getElementById("vid-1");
+    backgroundParent = document.getElementById("vid-1");
     
     /*  getBoundingClientRect retrieves the parent container
         has a property of width, the width will be used to set the width of the canvas
     */
-    var poopWidth = poop.getBoundingClientRect().width;
+    var backgroundParentWidth = backgroundParent.getBoundingClientRect().width;
 
     // original Width and height of loaded video retrieved from metadata
     var videoWidth = ev.target.videoWidth;
@@ -57,13 +57,13 @@ function OnMetaData(ev)
     /*  divide the parent container width by the video original width to get the
         percentage of width for scaling
     */
-    var AlteredOriginalWidthInPercent = poopWidth / videoWidth;
+    var AlteredOriginalWidthInPercent = backgroundParentWidth / videoWidth;
 
     /*  take the event object that was passed in and it's target 
         which is the video element created and set it's width to the width 
         of the parent conatiner
     */
-    ev.target.width = poopWidth;
+    ev.target.width = backgroundParentWidth;
 
 
     /*  to get the proper aspect ratio for the height, 
@@ -143,67 +143,102 @@ function createCanvas(id, filepath, thumbnail) {
     video.play();
 }
 
-
+// set receiving container of drop to allow
 function allowDrop(ev) {
     ev.preventDefault();
 }
 
+//event that is passed in the is canvas element that is currently targeted to drag   
 function drag(ev) {
+    /*  get position of targeted element container in relation to the body of the page
+        the getBoundingClientRect Method has a left and top property
+    */
     var rect = ev.target.getBoundingClientRect();
+    /*  ev.clientX  and clientY retrieves the mouse position in relation to the page
+        take that position and subtract the X position of the targeted canvas
+        this gives the mouse X position in relation to the targeted container
+        window has a property of scrollX and ScrollY
+        These properties account for extra width and height added if the page is made
+        smaller. When page shrinks it adds scroll height and/or width
+        Then do the same for the Y position
+    */
     xPos = ev.clientX - rect.left - window.scrollX;
     yPos = ev.clientY - rect.top - window.scrollY;
-    ev.dataTransfer.setData("text", ev.target.id);
+    ev.dataTransfer.setData("text", ev.target.id);// stages data to be dropped
 }
 
 
 function drop(ev) {
     ev.preventDefault();
-    var data = ev.dataTransfer.getData("text");
-    var canvas = document.getElementById(data);
+    var data = ev.dataTransfer.getData("text"); //receives data that is dropped
+    var canvas = document.getElementById(data); // the element that is dropped
 
-    //sconsole.log("x : ", ev.clientX, "y : ", ev.clientY);
-    ev.target.parentElement.appendChild(canvas);
+    /*  Element that is receiving the drop is the target and is within a 
+        from the ev.target get it's parent and append the transferred data
+        to the parent, this keeps the new canvas from going inside the targeted canvas
+    */
+    ev.target.parentElement.appendChild(canvas); 
+
+    // event.target receiving element
     var div = document.getElementById("background-video");
 
+    /*  to get the x and y position accurate for the dropped element
+        retrieve the mouse X and Y position relative to the body on the drop process
+        Then get the X and Y, or Left and Top position, of the element that is receiving
+        the dropped data in relation to the page
+        Subtract the mouse Drop position from the Container position and account for
+        scroll width and height
+    */
     var mouseX = ev.clientX - div.getBoundingClientRect().left - window.scrollX;
     var mouseY = ev.clientY - div.getBoundingClientRect().top - window.scrollY;
 
-
-    canvas.style.position = "absolute";
+    // overlay should be set to absolute so it will sit on top
+    canvas.style.position = "absolute"; 
+    // set it's position, position of the mouse on container minus position of mouse on
+    // dragged container
     canvas.style.left = (mouseX - xPos) + "px";
     canvas.style.top = (mouseY - yPos) + "px";
 
+    // positions with multiple decimal places would not insert into DB, Floor fixed that
     canvasX = Math.floor(mouseX - xPos);
     canvasY = Math.floor(mouseY - yPos);
 
+    // to pass the ProjectVideoId remove the string added to make a custome id
     var ProjectId = canvas.id.replace("c-canvas-", "");
 
+    // every time canvas element is moved, a new object was made and added to an Array
+    // set variable to check if object exists
     var foundObjectinArray = false;
 
+    // To avoid duplicate objects in the array, loop through the Array length
     for (var i = 0; i < ProjectObject.ProjectClass.length; i++) 
     {
-
+        // if the object already exists, update it's position
         var currenObject = ProjectObject.ProjectClass[i];
         if (currenObject.ProjectVideosId == ProjectId) {
             currenObject.XPosition = canvasX;
             currenObject.YPosition = canvasY;
             foundObjectinArray = true;
         }        
-
     }
 
     if (foundObjectinArray == false) 
     {
+        // if object does not exist create a new object and push into Array
         var projectVideo = {
             XPosition: canvasX,
             YPosition: canvasY,
             ProjectVideosId: ProjectId
         };
-
         ProjectObject.ProjectClass.push(projectVideo);
     }
 }
 
+/*  Event Listener on Save Button on NewProjectDisplay.cshtml
+Updates the title in the DB for a ProjectObjectOnce a title has been added
+the project is no longer open
+Event also saves the Canvas position of the overlay videos in the DB
+*/ 
 $(document).ready(function () {
     $("#SaveButton").click(function () {
         var titleInputFieled = document.getElementById("ProjectTitle").value;
