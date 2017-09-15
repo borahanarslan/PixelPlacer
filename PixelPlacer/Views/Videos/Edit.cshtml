@@ -1,4 +1,4 @@
-@model PixelPlacer.Models.Video
+@model PixelPlacer.Models.ViewModels.UpdateUploadViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -6,43 +6,36 @@
 
 <h2>Edit</h2>
 
-<form asp-action="Edit">
+<form asp-action="SaveUploadChanges">
     <div class="form-horizontal">
         <h4>Video</h4>
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <input type="hidden" asp-for="VideoId" />
+    <input type="hidden" asp-for="@Model.Video.VideoId" />
         <div class="form-group">
-            <label asp-for="VideoTitle" class="col-md-2 control-label"></label>
+            <label asp-for="@Model.Video.VideoTitle" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="VideoTitle" class="form-control" />
-                <span asp-validation-for="VideoTitle" class="text-danger"></span>
+                <input asp-for="@Model.Video.VideoTitle" class="form-control" />
+                <span asp-validation-for="@Model.Video.VideoTitle" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="VideoFilePath" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="VideoFilePath" class="form-control" />
-                <span asp-validation-for="VideoFilePath" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Thumbnail" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Thumbnail" class="form-control" />
-                <span asp-validation-for="Thumbnail" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="VideoTypeId" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="VideoTypeId" class="form-control" />
-                <span asp-validation-for="VideoTypeId" class="text-danger"></span>
+                <label asp-for="@Model.Video.VideoTypeId" class="col-md-2 control-label"></label>
+                @Html.DropDownList(
+             "Video.VideoTypeId",
+             @Model.VideoTypeList,
+             new
+             {
+                 @name = "Video.VideoTypeId"
+             })
+                <input type="hidden" asp-for="@Model.Video.VideoTypeId" class="form-control" />
+                <span asp-validation-for="@Model.Video.VideoTypeId" class="text-danger" />
             </div>
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save Changes" class="btn btn-default" />
             </div>
         </div>
     </div>

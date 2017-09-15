@@ -148,43 +148,40 @@ namespace PixelPlacer.Controllers
         
 
         // GET: Videos/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        // Method called on Video/Index View
+        // passes in VideoId selected
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var video = await _context.Video.SingleOrDefaultAsync(m => m.VideoId == id);
-            if (video == null)
-            {
-                return NotFound();
-            }
-            return View(video);
+            var user = await GetCurrentUserAsync();
+            UpdateUploadViewModel model = new UpdateUploadViewModel(_context, user, id);
+                                
+            return View(model);
         }
 
         // POST: Videos/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Method called from Video/Edit View
+        // Uses UpdateUploadViewModel to update the Title and and VideoTypeId on a single video matching
+        // the VideoId that is passed in on the Video/Edit Method from Video/Index view
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("VideoId,VideoTitle,VideoFilePath,Thumbnail,VideoTypeId")] Video video)
+        public async Task<IActionResult> SaveUploadChanges(UpdateUploadViewModel model)
         {
-            if (id != video.VideoId)
-            {
-                return NotFound();
-            }
+            ModelState.Remove("Video.VideoFilePath");
+            ModelState.Remove("Video.User");
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(video);
+                    var videoUpdate = _context.Video.SingleOrDefault(w => w.VideoId == model.Video.VideoId);
+                    videoUpdate.VideoTitle = model.Video.VideoTitle;
+                    videoUpdate.VideoTypeId = model.Video.VideoTypeId;
+                    _context.Video.Update(videoUpdate);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!VideoExists(video.VideoId))
+                    if (!VideoExists(model.Video.VideoId))
                     {
                         return NotFound();
                     }
@@ -195,7 +192,7 @@ namespace PixelPlacer.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            return View(video);
+            return RedirectToAction("Index");
         }
 
         // GET: Videos/Delete/5
@@ -222,8 +219,27 @@ namespace PixelPlacer.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var video = await _context.Video.SingleOrDefaultAsync(m => m.VideoId == id);
+            var videoPath = $@"\video\{video.VideoFilePath}";
+            var thumbPath = $@"\video\thumbs\{video.Thumbnail}";
+
+            FileInfo file1 = new FileInfo(videoPath);
+            FileInfo file2 = new FileInfo(thumbPath);
+
+            //Debug.WriteLine("file path" + videoPath);
+
+            if (file1.Exists)
+            {
+                file1.Delete();
+            }
+            else
+            {
+                return NotFound();
+            }
             _context.Video.Remove(video);
             await _context.SaveChangesAsync();
+
+
+
             return RedirectToAction("Index");
         }
 

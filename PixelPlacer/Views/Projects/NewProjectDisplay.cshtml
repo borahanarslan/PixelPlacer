@@ -33,6 +33,10 @@
         <div id="vid-1" ondrop="drop(event)" ondragover="allowDrop(event)" style="position:relative;">
             <script>createBackGroundCanvas("@item.VFilePath.Replace(@"\", @"\\")", @item.VTypeId)</script>            
         </div>
+        <div class="col-sm-offset-4 col-sm-3">
+            <div>@item.VTitle</div>
+            <a asp-controller="Projects" asp-action="RemoveProjectVideo" asp-route-id="@item.ProjVidId" class="btn btn-info btn-sm">Remove</a>
+        </div>
     </div>
     }
     <div class="col-lg-4">
@@ -46,7 +50,7 @@
                     </div>
                     <div class="col-sm-offset-4 col-sm-3">
                        <div>@item.VTitle</div> 
-                        <button type="button" class="btn btn-info btn-sm">Remove</button>
+                        <a asp-controller="Projects" asp-action="RemoveProjectVideo" asp-route-id="@item.ProjVidId" class="btn btn-info btn-sm">Remove</a>
                     </div>
                 </div>
                 <br />
@@ -54,9 +58,9 @@
         </div>
     </div>
 
-    @if (Model.BackGround.Count > 0 || Model.OverLay.Count > 0) { 
+    @if (Model.BackGround.Count > 0 && Model.OverLay.Count > 0) { 
    
-     <div class="container">
+     <div class="container" id="modalParent">
         <!-- Trigger the modal with a button -->
         <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Save Project</button>
 

@@ -7,44 +7,47 @@
 <h2>Index</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Upload">Upload New Video</a>
 </p>
 <table class="table">
     <thead>
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.VideoTitle)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.VideoFilePath)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Thumbnail)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.VideoTypeId)
-                </th>
+                                
+            <th>
+                @Html.DisplayNameFor(model => model.Thumbnail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VideoTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VideoTypeId)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
+        <tr>                        
+            <td>
+                <img src="@item.Thumbnail" />
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.VideoTitle)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VideoFilePath)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Thumbnail)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VideoTypeId)
-            </td>
+             @if (@item.VideoTypeId == 1)
+              {
+                <td>
+                Standard
+                </td>
+              }
+              else if (@item.VideoTypeId == 2)
+              {
+                <td>
+                    Green Screen
+                </td>
+              }
             <td>
                 <a asp-action="Edit" asp-route-id="@item.VideoId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.VideoId">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.VideoId">Delete</a>
             </td>
         </tr>

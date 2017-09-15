@@ -1,4 +1,5 @@
-﻿using PixelPlacer.Data;
+﻿using PixelPlacer.Classes;
+using PixelPlacer.Data;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,6 +14,7 @@ namespace PixelPlacer.Models.ViewModels
         public Video Video { get; set; }
 
         public Project Project { get; set; }
+
 
         // List to Hold Videos that a User can Select for a BackGround
         // this list is used on AddBackGroundVideo.cshtml in Projects

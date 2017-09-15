@@ -1,36 +1,94 @@
-@model PixelPlacer.Models.Project
+@model PixelPlacer.Models.ViewModels.EditProjectViewModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "ProjectPageDisplay";
 }
 
-<h2>Edit</h2>
+<h2>Edit Project</h2>
+<div asp-controller="Projects" asp-action="VideoTypes" class="row">
+    @foreach (var type in @Model.VideoTypes)
+    {
+        if (type.VideoTypeId == 1)
+        {
+            <div class="col-md-offset-4 col-md-2">
+                <a asp-controller="Projects" asp-action="AddBackGroundVideo" class="btn btn-default">
+                    Add BackGround
+                </a>
+            </div>
+        }
+        else
+        {
 
-<form asp-action="Edit">
-    <div class="form-horizontal">
-        <h4>Project</h4>
-        <hr />
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <input type="hidden" asp-for="ProjectId" />
-        <div class="form-group">
-            <label asp-for="Title" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
+            <div class="col-md-2">
+                <a asp-controller="Projects" asp-action="AddOverLayVideo" class="btn btn-default">
+                    Add Green Screen
+                </a>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+        }
+    }
+</div>
+<div class="row">
+    @foreach (var item in Model.BackGround)
+    {   <div class="col-lg-8">
+        <h3>Background Video</h3>
+        <div id="vid-1" ondrop="drop(event)" ondragover="allowDrop(event)" style="position:relative;">
+            <script>createBackGroundCanvas("@item.VFilePath.Replace(@"\", @"\\")", @item.VTypeId)</script>
         </div>
     </div>
-</form>
+    }
+    <div class="col-lg-4">
+        <div class="row overlayVideo">
+            <h3>OverLay Videos</h3>
+            @foreach (var item in Model.OverLay)
+            {
+                <div class="row">
+                    <div id="canvas-@item.ProjVidId" class="col-sm-5">
+                        <script>createCanvas("canvas-@item.ProjVidId", "@item.VFilePath.Replace(@"\", @"\\")", "@item.Thumb.Replace(@"\", @"\\")");</script>
+                    </div>
+                    <div class="col-sm-offset-4 col-sm-3">
+                        <div>@item.VTitle</div>
+                        <button type="button" class="btn btn-info btn-sm">Remove</button>
+                    </div>
+                </div>
+                <br />
+            }
+        </div>
+    </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+    @if (Model.BackGround.Count > 0 || Model.OverLay.Count > 0)
+    {
+
+        <div class="container">
+            <!-- Trigger the modal with a button -->
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Save Project</button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Give Your Project a Name</h4>
+                        </div>
+                        <br /><br />
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Title</label>
+                            <div class="col-md-10">
+                                <input id="ProjectTitle" name="Title" class="form-control" />
+                            </div>
+                        </div>
+                        <br /><br />
+                        <div class="modal-footer">
+                            <input type="button" value="Save" class="btn btn-primary" id="SaveButton" />
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+<div>
+    <a asp-controller="Home" asp-action="Index">Back</a>
+</div>

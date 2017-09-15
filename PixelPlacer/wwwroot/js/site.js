@@ -258,7 +258,7 @@ function drop(ev) {
             currenObject.XPosition = canvasX;
             currenObject.YPosition = canvasY;
             foundObjectinArray = true;
-        }        
+        }       
     }
 
     if (foundObjectinArray == false) 

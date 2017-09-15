@@ -14,9 +14,9 @@
             <br /><br />
             <p> @item.VideoTitle</p>
 
-            <form asp-controller="Projects" asp-action="AddVideos">
+            <form asp-controller="Projects" asp-action="AddBackGroundVideoToDB">               
                 <input type="hidden" value="@item.VideoId" name="id" />
-                <img src=@item.Thumbnail>
+                <img src=@item.Thumbnail>                
                 <input type="submit" value="Add Me" class="btn" />
             </form>
         </div>

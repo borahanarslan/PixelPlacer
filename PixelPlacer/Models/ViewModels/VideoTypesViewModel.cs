@@ -36,6 +36,7 @@ namespace PixelPlacer.Models.ViewModels
                            VFilePath = v.VideoFilePath,
                            VTypeId = v.VideoTypeId,
                            ProjId = pv.ProjectId,
+                           ProjVidId = pv.ProjectVideosId
                        }).ToList();
 
             if (BackGround.Count == 1)

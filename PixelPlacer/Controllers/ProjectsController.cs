@@ -34,7 +34,9 @@ namespace PixelPlacer.Controllers
         // GET: Projects
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Project.ToListAsync());
+            var user = await GetCurrentUserAsync();
+            ProjectListViewModel list = new ProjectListViewModel(_context, user);
+            return View(list);
         }
 
         // GET: Projects/Details/5
@@ -95,9 +97,9 @@ namespace PixelPlacer.Controllers
         // then the DB will update current existing Project and JT
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddVideos(int id)
+        public async Task<IActionResult> AddBackGroundVideoToDB(int id)
         {
-            var user = await GetCurrentUserAsync();
+            var user = await GetCurrentUserAsync();          
             var video = await _context.Video.SingleOrDefaultAsync(v => v.VideoId == id);
 
             var currentProject = await _context.Project
@@ -113,8 +115,49 @@ namespace PixelPlacer.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("NewProjectDisplay", "Projects");
             }
+            else
+            {
+                ProjectVideos pv = new ProjectVideos() { VideoId = video.VideoId, ProjectId = currentProject.ProjectId, User = user, BackGround = true };
+                _context.ProjectVideos.Add(pv);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction("NewProjectDisplay", "Projects");
+        }
+
+        // POST: Projects/AddVideos 
+        // Accepts argument which is a VideoID
+        // Once Video is added a new Project is created and each video is added 
+        // to the ProjectVideo JT
+        // if an open Project exists(no title has been added on the Project Table)
+        // then the DB will update current existing Project and JT
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddOverLayVideoToDB(int id)
+        {
+            var user = await GetCurrentUserAsync();
+            if (!ModelState.IsValid)
+            {
+                return NotFound();
+            }
+
+            var video = await _context.Video.SingleOrDefaultAsync(v => v.VideoId == id);
+
+            var currentProject = await _context.Project
+                .SingleOrDefaultAsync(m => m.User == user && m.Title == null);
+
+            if (currentProject == null)
+            {
+                ModelState.Remove("Project.Title");
+                Project project = new Project() { User = user };
+                _context.Project.Add(project);
+                ProjectVideos projectVideos = new ProjectVideos() { VideoId = video.VideoId, ProjectId = project.ProjectId, User = user, BackGround = false};
+                _context.ProjectVideos.Add(projectVideos);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("NewProjectDisplay", "Projects");
+            }
             else {
-                ProjectVideos pv = new ProjectVideos() { VideoId = video.VideoId, ProjectId = currentProject.ProjectId , User = user};
+                ProjectVideos pv = new ProjectVideos() { VideoId = video.VideoId, ProjectId = currentProject.ProjectId , User = user, BackGround = false };
                 _context.ProjectVideos.Add(pv);
                 await _context.SaveChangesAsync();              
             }
@@ -154,55 +197,73 @@ namespace PixelPlacer.Controllers
 
 
         // GET: Projects/Edit/5
-    public async Task<IActionResult> Edit(int? id)
+        // Pass in EditProjectViewModel, accessed from Edit View for Projects
+        // Method accepts the ProjectId as an argument
+        // View Model returns a list of videos associated with that ProjectId from the ProjectVideos Table
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
+            var user = await GetCurrentUserAsync();
+            EditProjectViewModel model = new EditProjectViewModel(_context, user, id);
+        
             var project = await _context.Project.SingleOrDefaultAsync(m => m.ProjectId == id);
             if (project == null)
             {
                 return NotFound();
             }
-            return View(project);
+            return View(model);
+        }
+
+        // Method called in NewProjectDisplay.cshtml and accepts the ProjectVideoId
+        // Allows user to remove videos that have been selected and added to an open Project
+        // There will only be one item with that id, if it exists remove from DB 
+        // and redirect back to DisplayNewProject View
+        public async Task<IActionResult> RemoveProjectVideo(int id)
+        {
+            if (id == 0)
+            {
+                return NotFound();
+            }
+
+            var project = _context.ProjectVideos.SingleOrDefault(p => p.ProjectVideosId == id);
+            _context.ProjectVideos.Remove(project);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("NewProjectDisplay", "Projects");
         }
 
         // POST: Projects/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProjectId,Title")] Project project)
-        {
-            if (id != project.ProjectId)
-            {
-                return NotFound();
-            }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Edit(int id, [Bind("ProjectId,Title")] Project project)
+        //{
+        //    if (id != project.ProjectId)
+        //    {
+        //        return NotFound();
+        //    }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(project);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ProjectExists(project.ProjectId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction("Index");
-            }
-            return View(project);
-        }
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            _context.Update(project);
+        //            await _context.SaveChangesAsync();
+        //        }
+        //        catch (DbUpdateConcurrencyException)
+        //        {
+        //            if (!ProjectExists(project.ProjectId))
+        //            {
+        //                return NotFound();
+        //            }
+        //            else
+        //            {
+        //                throw;
+        //            }
+        //        }
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(project);
+        //}
 
         // GET: Projects/Delete/5
         public async Task<IActionResult> Delete(int? id)

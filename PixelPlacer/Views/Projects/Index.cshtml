@@ -1,4 +1,4 @@
-@model IEnumerable<PixelPlacer.Models.Project>
+@model PixelPlacer.Models.ViewModels.ProjectListViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -7,19 +7,20 @@
 <h2>Index</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="NewProjectDisplay">Create New</a>
 </p>
 <table class="table">
-    <thead>
+    <thead>         
         <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Title)
+                    Project Title
                 </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+    @foreach (var item in Model.Projects)
+    {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
@@ -30,6 +31,7 @@
                 <a asp-action="Delete" asp-route-id="@item.ProjectId">Delete</a>
             </td>
         </tr>
-}
+    }
+
     </tbody>
 </table>
