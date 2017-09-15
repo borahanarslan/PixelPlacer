@@ -33,7 +33,7 @@ function createBackGroundCanvas(filepath)
     backVideo.width = 640;
     backVideo.height = 360;
     backVideo.loop = true;
-    backVideo.play();
+    backVideo.pause();
 }
 
 /*  This function receives an event object from the createBackGroundCanvas function
@@ -97,8 +97,11 @@ function OnMetaData(ev)
         pause the video because the play event listener will not catch it if it is 
         already playing, then restart play to trigger event
     */
-    backVideo.pause();
-    backVideo.play();
+    
+        //.then(function () {
+    backVideo.play().catch(function () { console.log("check out this stupid error") });
+            
+        //});
 }
 
 /*  This methos is called from NewProjectDisplay.cshtml and accepts 3 arguments
@@ -110,6 +113,7 @@ function OnMetaData(ev)
 function createCanvas(id, filepath, thumbnail) {
 
     var video = document.createElement("video");
+    video.id = "video-" + id;
     video.src = filepath;
     video.width = 250;
     video.height = 150;
@@ -124,22 +128,44 @@ function createCanvas(id, filepath, thumbnail) {
     canvasElement.ondragstart = drag; // set to call function drag once event starts
 
 
-    var context = canvasElement.getContext("2d");
+    var seriously = new Seriously();
+
+    var src = seriously.source(video);
+    var target = seriously.target(canvasElement);
+
+    var chroma = seriously.effect("chroma");
+    chroma.source = src;
+    var resize = seriously.transform("reformat");
+    resize.width = 250;
+    resize.height = 150;
+    resize.mode = 'distort';
+    resize.source = chroma;
+
+    target.source = resize;
+
+    var r = 98 / 255;
+    var g = 175 / 255;
+    var b = 116 / 255;
+    chroma.screen = [r, g, b, 1];
+
+
+    var context = canvasElement.getContext("webgl");
     // each canvas is appended to a div with a custom ID
     document.getElementById(id).appendChild(canvasElement); 
 
-    // listen to play event for video element in order to draw to canvas
-    video.addEventListener("play", function () {
-        var $this = this;// cache
-        (function loop() {
-            if (!this.paused && !this.ended) {
-                context.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
-                setTimeout(loop, 1000 / 30); //drawing at 30fps
-            }
-        })();
-    });
+     //listen to play event for video element in order to draw to canvas
+    //video.addEventListener("play", function () {
+    //    var $this = this;// cache
+    //    (function loop() {
+    //        if (!this.paused && !this.ended) {
+    //            context.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
+    //            setTimeout(loop, 1000 / 30); //drawing at 30fps
+    //        }
+    //    })();
+    //});
 
     // trigger play event listener
+    seriously.go();
     video.play();
 }
 
