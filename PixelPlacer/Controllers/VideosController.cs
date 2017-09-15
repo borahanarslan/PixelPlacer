@@ -219,27 +219,25 @@ namespace PixelPlacer.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var video = await _context.Video.SingleOrDefaultAsync(m => m.VideoId == id);
-            var videoPath = $@"\video\{video.VideoFilePath}";
-            var thumbPath = $@"\video\thumbs\{video.Thumbnail}";
+            var videoPath = _environment.WebRootPath + "\\video\\" + Path.GetFileName(video.VideoFilePath);
+            var thumbPath = _environment.WebRootPath + "\\video\\thumbs\\" + Path.GetFileName(video.Thumbnail);
 
             FileInfo file1 = new FileInfo(videoPath);
             FileInfo file2 = new FileInfo(thumbPath);
 
             //Debug.WriteLine("file path" + videoPath);
 
-            if (file1.Exists)
+            if (file1.Exists && file2.Exists)
             {
                 file1.Delete();
+                file2.Delete();
+                _context.Video.Remove(video);
+                await _context.SaveChangesAsync();
             }
             else
             {
                 return NotFound();
             }
-            _context.Video.Remove(video);
-            await _context.SaveChangesAsync();
-
-
-
             return RedirectToAction("Index");
         }
 
