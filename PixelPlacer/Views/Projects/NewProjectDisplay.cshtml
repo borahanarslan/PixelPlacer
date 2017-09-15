@@ -31,7 +31,7 @@
     {   <div class="col-lg-8">
         <h3>Background Video</h3>
         <div id="vid-1" ondrop="drop(event)" ondragover="allowDrop(event)" style="position:relative;">
-            <script>createBackGroundCanvas("@item.VFilePath.Replace(@"\", @"\\")")</script>            
+            <script>createBackGroundCanvas("@item.VFilePath.Replace(@"\", @"\\")", @item.VTypeId)</script>            
         </div>
     </div>
     }

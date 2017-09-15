@@ -5,14 +5,17 @@ var canvasY; // store Y position of container that is dragging
 var backgroundParent; // parent container background canvas element will be appended to
 var ProjectObject = {}; // Object that will be passed to Ajax call with Project Info
 ProjectObject.ProjectClass = []; // Object will hold IEnumerable of Objects within Array
+var isGreenScreen; // if value that is set = 2 then the DB videotype is green screen
 
 var backVideo; // store the background video element that is created
 
 
 // This function is called from the NewProjectDisplay.cshtml view
-// It accepts one argument which is the filepath to the backgrounf video
-function createBackGroundCanvas(filepath)
+// It accepts 2 arguments which is the filepath to the backgrounf video
+// and the videotype
+function createBackGroundCanvas(filepath, id)
 {
+    isGreenScreen = id;
     // create new element to be drawn to canvas
     backVideo = document.createElement("video"); 
 
@@ -72,36 +75,60 @@ function OnMetaData(ev)
     */
     ev.target.height = videoHeight * AlteredOriginalWidthInPercent;
 
-    // create an element to draw the background video element to
-    var backCanvas = document.createElement("canvas");
-    backCanvas.id = "background-video"; // set the ID so the drop function can be added
-    backCanvas.width = ev.target.width;
-    backCanvas.height = ev.target.height;
+    /* Serious.JS Chroma Key Magic */
+    if (isGreenScreen == 2) {
+        // create an element to draw the background video element to
+        var backCanvas = document.createElement("canvas");
+        backCanvas.id = "background-video"; // set the ID so the drop function can be added
+        backCanvas.width = ev.target.width;
+        backCanvas.height = ev.target.height;
 
-    var context = backCanvas.getContext("2d");
+        var seriously = new Seriously();
 
-    backgroundParent.appendChild(backCanvas);
+        var src = seriously.source(backVideo);
+        var target = seriously.target(backCanvas);
 
-    // listen for video to play to start the drawing to canvas
-    backVideo.addEventListener("play", function () {
-        var $this = this;// cache
-        (function loop() {
-            if (!this.paused && !this.ended) {
-                context.drawImage(backVideo, 0, 0, backCanvas.width, backCanvas.height);
-                setTimeout(loop, 1000 / 30); //drawing at 30fps
-            }
-        })();
-    });
+        var chroma = seriously.effect("chroma");
+        chroma.source = src;
+        var resize = seriously.transform("reformat");
+        resize.width = backCanvas.width;
+        resize.height = backCanvas.height;
+        resize.mode = 'distort';
+        resize.source = chroma;
 
-    /*  video is currently playing from the createBackGroundCanvas function
-        pause the video because the play event listener will not catch it if it is 
-        already playing, then restart play to trigger event
-    */
-    
-        //.then(function () {
-    backVideo.play().catch(function () { console.log("check out this stupid error") });
-            
-        //});
+        target.source = resize;
+
+        var r = 98 / 255;
+        var g = 175 / 255;
+        var b = 116 / 255;
+        chroma.screen = [r, g, b, 1];
+
+        backgroundParent.appendChild(backCanvas);
+        seriously.go();
+        backVideo.play();
+    } else {
+        // if video is not a green screen type(2 in the DB) then do not apply chroma key
+        // create an element to draw the background video element to
+        var backCanvas = document.createElement("canvas");
+        backCanvas.id = "background-video"; // set the ID so the drop function can be added
+        backCanvas.width = ev.target.width;
+        backCanvas.height = ev.target.height;
+
+        var context = backCanvas.getContext("2d");
+        backgroundParent.appendChild(backCanvas);
+
+        //listen for video to play to start the drawing to canvas
+        backVideo.addEventListener("play", function () {
+            var $this = this;// cache
+            (function loop() {
+                if (!this.paused && !this.ended) {
+                    context.drawImage(backVideo, 0, 0, backCanvas.width, backCanvas.height);
+                    setTimeout(loop, 1000 / 30); //drawing at 30fps
+                }
+            })();
+        });
+        backVideo.play();
+    }  
 }
 
 /*  This methos is called from NewProjectDisplay.cshtml and accepts 3 arguments
@@ -127,7 +154,7 @@ function createCanvas(id, filepath, thumbnail) {
     canvasElement.draggable = true; // set this property to true in order to drag & drop
     canvasElement.ondragstart = drag; // set to call function drag once event starts
 
-
+    // More Seriously.Js Chroma Key Magic
     var seriously = new Seriously();
 
     var src = seriously.source(video);
@@ -148,23 +175,9 @@ function createCanvas(id, filepath, thumbnail) {
     var b = 116 / 255;
     chroma.screen = [r, g, b, 1];
 
-
-    var context = canvasElement.getContext("webgl");
     // each canvas is appended to a div with a custom ID
     document.getElementById(id).appendChild(canvasElement); 
 
-     //listen to play event for video element in order to draw to canvas
-    //video.addEventListener("play", function () {
-    //    var $this = this;// cache
-    //    (function loop() {
-    //        if (!this.paused && !this.ended) {
-    //            context.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
-    //            setTimeout(loop, 1000 / 30); //drawing at 30fps
-    //        }
-    //    })();
-    //});
-
-    // trigger play event listener
     seriously.go();
     video.play();
 }
