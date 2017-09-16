@@ -39,22 +39,12 @@ namespace PixelPlacer.Controllers
             return View(list);
         }
 
-        // GET: Projects/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // GET: Projects/Play/5
+        public async Task<IActionResult> Play(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var project = await _context.Project
-                .SingleOrDefaultAsync(m => m.ProjectId == id);
-            if (project == null)
-            {
-                return NotFound();
-            }
-
-            return View(project);
+            var user = await GetCurrentUserAsync();
+            ProjectPlayViewModel model = new ProjectPlayViewModel(_context, user, id);         
+            return View(model);
         }
 
         // Controller to display all videos on Create New Project Option

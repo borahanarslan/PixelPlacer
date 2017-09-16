@@ -16,6 +16,13 @@ select,
 textarea {
     max-width: 280px;
 }
+/*set width on Video Player, Play View in Video Views File*/
+#parentContainer {
+    width: 85%;
+    position: relative;
+    overflow: hidden;
+}
+
 
 /* Carousel */
 .carousel-caption p {

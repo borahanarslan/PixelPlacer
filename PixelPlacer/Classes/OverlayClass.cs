@@ -15,5 +15,8 @@ namespace PixelPlacer.Classes
         public int ProjId { get; set; }
         public int ProjVidId { get; set; }
         public string Thumb { get; set; }
+        public bool BackGround { get; set; }
+        public int XPosition { get; set; }
+        public int YPosition { get; set; }
     }
 }

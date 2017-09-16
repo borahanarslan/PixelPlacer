@@ -1,0 +1,28 @@
+@model PixelPlacer.Models.ViewModels.ProjectPlayViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Project</h4>
+    <hr />
+</div>
+<div id="parentContainer">
+    @if (Model.BackGroundVideo.BackGround == true)
+    {
+        <script>CreateBackGround(@Model.BackGroundVideo.ProjVidId, "@Model.BackGroundVideo.VFilePath.Replace(@"\", @"\\")", @Model.BackGroundVideo.VTypeId)</script>
+    }
+    @foreach (var item in Model.OverLayList)
+    { 
+        <script>CreateOverLay(@item.ProjVidId, "@item.VFilePath.Replace(@"\", @"\\")")</script>
+    }    
+</div>
+<div>
+    <button id="PlayButton" class="btn btn-info btn-lg">Play</button>
+    <button id="StopButton" class="btn btn-info btn-lg">Stop</button>
+    @*<a asp-action="Edit" asp-route-id="@Model.ProjectId">Edit</a> |*@
+    <a asp-action="Index">Back to List</a>
+</div>
