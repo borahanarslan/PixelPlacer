@@ -1,6 +1,8 @@
 ﻿var VideoArray = [];
 var BackGroundCanvasArray = [];
 var CanvasArray = [];
+var VideoMouseOverArray = [];
+var CanvasMouseOverArray = [];
 var videoTypeId;
 var backGround;
 var canvas;
@@ -43,7 +45,7 @@ function BackGroundMetaData(ev)
         backCanvas.height = ev.target.height;
         backCanvas.id = "c-" + counter;
         CanvasArray.push(backCanvas);
-        backCanvas.addEventListener("click", ClickToPlay);
+        //backCanvas.addEventListener("click", ClickToPlay);
         //backCanvas.addEventListener("mouseover", MouseOver);
 
         var seriously = new Seriously();
@@ -74,7 +76,7 @@ function BackGroundMetaData(ev)
         backCanvas.width = ev.target.width;
         backCanvas.height = ev.target.height;
         CanvasArray.push(backCanvas);
-        backCanvas.addEventListener("click", ClickToPlay);
+        //backCanvas.addEventListener("click", ClickToPlay);
         //backCanvas.addEventListener("mouseover", MouseOver);
 
 
@@ -105,6 +107,7 @@ function CreateOverLay(ProjVideoId, filepath)
     videoOverLayElement.height = 150;
     videoOverLayElement.loop = true;
     VideoArray.push(videoOverLayElement);
+    VideoMouseOverArray.push(videoOverLayElement);
 
 
     canvas = document.createElement("canvas");
@@ -112,7 +115,7 @@ function CreateOverLay(ProjVideoId, filepath)
     canvas.height = videoOverLayElement.height;
     canvas.id = "c-" + counter;
     canvas.style.position = "absolute";
-    canvas.addEventListener("click", ClickToPlay);
+    //canvas.addEventListener("click", ClickToPlay);
     //canvas.addEventListener("mouseover", MouseOver);
 
     var seriously = new Seriously();
@@ -135,6 +138,7 @@ function CreateOverLay(ProjVideoId, filepath)
 
     parentContainer.appendChild(canvas);
     CanvasArray.push(canvas);
+    CanvasMouseOverArray.push(canvas);
 
     seriously.go();
     videoOverLayElement.play();
@@ -145,6 +149,7 @@ function CreateOverLay(ProjVideoId, filepath)
 $(document).ready(function () {
     $("#PlayButton").click(PlayAll);
     $("#StopButton").click(StopAll);
+    $("#InteractiveButton").click(InteractivePlay);
 });
 
 
@@ -153,12 +158,17 @@ function PlayAll(ev)
 {
     for (var i = 0; i < VideoArray.length; i++)
     {
-        VideoArray[i].play();
-        CanvasArray[i].removeEventListener("mouseover", MouseOver);
-        //CanvasArray[i].removeEventListener("mouseout", MouseOut);
-        //CanvasArray[i].removeEventListener("click", ClickToPlay);
+        if (VideoArray[i].paused) {
+            VideoArray[i].play();
+            CanvasArray[i].removeEventListener("mouseover", MouseOver);
+            CanvasArray[i].removeEventListener("mouseout", MouseOut);
+            CanvasArray[i].removeEventListener("click", ClickToPlay);
+        } else {
+            VideoArray[i].pause();
+        }
     }
 }
+
 
 function StopAll(ev)
 {
@@ -166,9 +176,36 @@ function StopAll(ev)
     {
         VideoArray[i].pause();
         VideoArray[i].currentTime = 0;
-        CanvasArray[i].addEventListener("mouseover", MouseOver);
-        //CanvasArray[i].addEventListener("mouseout", MouseOut);
-        CanvasArray[i].addEventListener("click", ClickToPlay);
+        CanvasArray[i].removeEventListener("mouseover", MouseOver);
+        CanvasArray[i].removeEventListener("mouseout", MouseOut);
+        CanvasArray[i].removeEventListener("click", ClickToPlay);
+    }
+}
+
+function InteractivePlay(ev)
+{
+    for (var i = 0; i < VideoArray.length; i++)
+    {
+        VideoArray[i].pause();
+        VideoArray[i].currentTime = 0;
+        if (CanvasArray[i].id == "c-1")
+        {
+            //CanvasArray[i].removeEventListener("click", ClickToPlay);
+            CanvasArray[i].addEventListener("mouseover", MouseOver);
+            //&& VideoArray[i].id == "v-1"
+        }
+        if (CanvasArray[i].id != "c-1")
+        {
+            for (var b = 0; b < CanvasMouseOverArray.length; b++)
+            {
+                CanvasMouseOverArray[b].addEventListener("mouseover", MouseOver);
+                CanvasMouseOverArray[b].addEventListener("click", ClickToPlay);
+            }
+            //VideoArray[0].play();
+            //CanvasArray[i].addEventListener("mouseover", MouseOver);
+            //CanvasArray[i].addEventListener("click", ClickToPlay);
+            //CanvasArray[i].addEventListener("mouseout", MouseOut);
+        }
     }
 }
 
@@ -179,7 +216,7 @@ function ClickToPlay(ev)
     if (ev.target.id == "c-1") {
         if (VideoArray[0].paused) {
             VideoArray[0].play();
-            ev.target.removeEventListener("mouseover", MouseOver);
+            //ev.target.removeEventListener("mouseover", MouseOver);
             //ev.target.removeEventListener("mouseout", MouseOut);
         } else {
             VideoArray[0].pause();
@@ -196,7 +233,7 @@ function ClickToPlay(ev)
                 if (VideoArray[i].paused)
                 {
                     VideoArray[i].play();
-                    ev.target.removeEventListener("mouseover", MouseOver);
+                    //ev.target.removeEventListener("mouseover", MouseOver);
                     //ev.target.removeEventListener("mouseout", MouseOut);
                 } else {
                     VideoArray[i].pause();
@@ -210,19 +247,37 @@ function ClickToPlay(ev)
 
 function MouseOver(ev)
 {
-    //console.log("mouseover:", ev.target);
-    var targetId = ev.target.id.slice(2, 3);
-        //console.log("what might you be?", VideoArray[targetId - 1].id, ev.target.id);
-    var videoId = VideoArray[targetId - 1]
-    if (videoId.paused) {
-        videoId.play();
-    } else {
-        videoId.pause();
-    }
+    var backgroundVideoTarget = VideoArray[0];
+
+    if (ev.target.id == "c-1") {
+        backgroundVideoTarget.play();
+    } 
+
+    if (ev.target.id != "c-1")
+    {
+        console.log("target: ", ev.target);
+        for (var i = 0; i < VideoMouseOverArray.length; i++)
+        {
+            VideoMouseOverArray[i].play();
+            CanvasMouseOverArray[i].addEventListener("mouseout", MouseOut);
+        }
+    } 
 }
 
 
+function MouseOut(ev)
+{
+    var targetId = ev.target.id.replace("c-", "");
+    for (var i = 0; i < VideoMouseOverArray.length; i++)
+    {
+        var videoId = VideoMouseOverArray[i].id.replace("o-", "");
+        if (targetId == videoId)
+        {
+            VideoMouseOverArray[i].pause();
+        }
 
+    }
+}
 
 
 
