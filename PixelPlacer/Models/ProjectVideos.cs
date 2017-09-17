@@ -24,6 +24,12 @@ namespace PixelPlacer.Models
 
         public int YPosition { get; set; }
 
+        public int Width { get; set; }
+
+        public int Height {get; set;}
+
+        public int Rotation { get; set; }
+
         public bool BackGround { get; set; }
     }
 }

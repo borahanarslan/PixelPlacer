@@ -56,7 +56,9 @@ namespace PixelPlacer.Models.ViewModels
                            VTypeId = v.VideoTypeId,
                            ProjId = pv.ProjectId,
                            ProjVidId = pv.ProjectVideosId,
-                           Thumb = v.Thumbnail
+                           Thumb = v.Thumbnail,
+                           XPosition = pv.XPosition,
+                           YPosition = pv.YPosition
                        }).ToList();
 
             if (OverLay.Count >= 3 && BackGround.Count > 0)

@@ -3,13 +3,6 @@
 @{
     ViewData["Title"] = "Details";
 }
-
-<h2>Details</h2>
-
-<div>
-    <h4>Project</h4>
-    <hr />
-</div>
 <div id="parentContainer">
     @if (Model.BackGroundVideo.BackGround == true)
     {
@@ -17,7 +10,7 @@
     }
     @foreach (var item in Model.OverLayList)
     { 
-        <script>CreateOverLay(@item.ProjVidId, "@item.VFilePath.Replace(@"\", @"\\")")</script>
+        <script>CreateOverLay(@item.ProjVidId, "@item.VFilePath.Replace(@"\", @"\\")", @item.XPosition, @item.YPosition)</script>
     }    
 </div>
 <div>

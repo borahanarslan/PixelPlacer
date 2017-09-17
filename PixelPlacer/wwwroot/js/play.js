@@ -6,12 +6,12 @@ var CanvasMouseOverArray = [];
 var videoTypeId;
 var backGround;
 var canvas;
-//var videoOverLayElement;
+var Xposition;
+var Yposition;
 
 function CreateBackGround(backProjectVidoId, backFilePath, videoType)
 {
     var counter = 1;
-    console.log("background video :", backFilePath, backProjectVidoId, videoType);
     videoTypeId = videoType;
 
     backGround = document.createElement("video");
@@ -35,7 +35,6 @@ function BackGroundMetaData(ev)
     var videoOriginalHeight = ev.target.videoHeight;
     var AlteredOriginalWidthInPercent = parentContainerWidth / videoOriginalWidth;
 
-    console.log("cantainer width:", parentContainerWidth);
     ev.target.width = parentContainerWidth;
     ev.target.height = videoOriginalHeight * AlteredOriginalWidthInPercent;
 
@@ -45,11 +44,8 @@ function BackGroundMetaData(ev)
         backCanvas.height = ev.target.height;
         backCanvas.id = "c-" + counter;
         CanvasArray.push(backCanvas);
-        //backCanvas.addEventListener("click", ClickToPlay);
-        //backCanvas.addEventListener("mouseover", MouseOver);
 
         var seriously = new Seriously();
-
         var src = seriously.source(backGround);
         var target = seriously.target(backCanvas);
         var chroma = seriously.effect("chroma");
@@ -76,9 +72,6 @@ function BackGroundMetaData(ev)
         backCanvas.width = ev.target.width;
         backCanvas.height = ev.target.height;
         CanvasArray.push(backCanvas);
-        //backCanvas.addEventListener("click", ClickToPlay);
-        //backCanvas.addEventListener("mouseover", MouseOver);
-
 
         var context = backCanvas.getContext("2d");
         parentContainer.appendChild(backCanvas);
@@ -96,8 +89,13 @@ function BackGroundMetaData(ev)
     }
 }
 
-function CreateOverLay(ProjVideoId, filepath)
+function CreateOverLay(ProjVideoId, filepath, x, y)
 {
+    console.log("X : ", x);
+    console.log("Y : ", y);
+    Xposition = x;
+    Yposition = y;
+
     counter = 2;
     var parentContainer = document.getElementById("parentContainer");
     var videoOverLayElement = document.createElement("video");
@@ -106,17 +104,18 @@ function CreateOverLay(ProjVideoId, filepath)
     videoOverLayElement.width = 250;
     videoOverLayElement.height = 150;
     videoOverLayElement.loop = true;
+
     VideoArray.push(videoOverLayElement);
     VideoMouseOverArray.push(videoOverLayElement);
-
 
     canvas = document.createElement("canvas");
     canvas.width = videoOverLayElement.width;
     canvas.height = videoOverLayElement.height;
     canvas.id = "c-" + counter;
     canvas.style.position = "absolute";
-    //canvas.addEventListener("click", ClickToPlay);
-    //canvas.addEventListener("mouseover", MouseOver);
+    console.log("Xposition", Xposition + "px");
+    canvas.style.left = Xposition + "px";
+    canvas.style.top = Yposition + "px";
 
     var seriously = new Seriously();
     var src = seriously.source(videoOverLayElement);
@@ -174,8 +173,8 @@ function StopAll(ev)
 {
     for (var i = 0; i < VideoArray.length; i++)
     {
-        VideoArray[i].pause();
         VideoArray[i].currentTime = 0;
+        VideoArray[i].play();
         CanvasArray[i].removeEventListener("mouseover", MouseOver);
         CanvasArray[i].removeEventListener("mouseout", MouseOut);
         CanvasArray[i].removeEventListener("click", ClickToPlay);
@@ -190,9 +189,7 @@ function InteractivePlay(ev)
         VideoArray[i].currentTime = 0;
         if (CanvasArray[i].id == "c-1")
         {
-            //CanvasArray[i].removeEventListener("click", ClickToPlay);
             CanvasArray[i].addEventListener("mouseover", MouseOver);
-            //&& VideoArray[i].id == "v-1"
         }
         if (CanvasArray[i].id != "c-1")
         {
@@ -201,27 +198,17 @@ function InteractivePlay(ev)
                 CanvasMouseOverArray[b].addEventListener("mouseover", MouseOver);
                 CanvasMouseOverArray[b].addEventListener("click", ClickToPlay);
             }
-            //VideoArray[0].play();
-            //CanvasArray[i].addEventListener("mouseover", MouseOver);
-            //CanvasArray[i].addEventListener("click", ClickToPlay);
-            //CanvasArray[i].addEventListener("mouseout", MouseOut);
         }
     }
 }
 
 function ClickToPlay(ev)
-{
-    console.log("Who is target:", ev.target.id);
-    
+{    
     if (ev.target.id == "c-1") {
         if (VideoArray[0].paused) {
             VideoArray[0].play();
-            //ev.target.removeEventListener("mouseover", MouseOver);
-            //ev.target.removeEventListener("mouseout", MouseOut);
         } else {
-            VideoArray[0].pause();
-            //ev.target.addEventListener("mouseover", MouseOver);
-            //ev.target.addEventListener("mouseout", MouseOut);
+            VideoArray[0].pause();    
         }
     } else {
         var canvasId = ev.target.id.slice(2, 3);
@@ -233,12 +220,8 @@ function ClickToPlay(ev)
                 if (VideoArray[i].paused)
                 {
                     VideoArray[i].play();
-                    //ev.target.removeEventListener("mouseover", MouseOver);
-                    //ev.target.removeEventListener("mouseout", MouseOut);
                 } else {
                     VideoArray[i].pause();
-                    //ev.target.addEventListener("mouseover", MouseOver);
-                    //ev.target.addEventListener("mouseout", MouseOut);
                 }          
             }
         }
@@ -275,7 +258,6 @@ function MouseOut(ev)
         {
             VideoMouseOverArray[i].pause();
         }
-
     }
 }
 

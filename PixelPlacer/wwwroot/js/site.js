@@ -6,6 +6,8 @@ var backgroundParent; // parent container background canvas element will be appe
 var ProjectObject = {}; // Object that will be passed to Ajax call with Project Info
 ProjectObject.ProjectClass = []; // Object will hold IEnumerable of Objects within Array
 var isGreenScreen; // if value that is set = 2 then the DB videotype is green screen
+var Xposition;
+var Yposition;
 
 var backVideo; // store the background video element that is created
 
@@ -138,7 +140,6 @@ function OnMetaData(ev)
     Method creates a video element and a canvas element to draw to for Overlay videos
 */
 function createCanvas(id, filepath, thumbnail) {
-
     var video = document.createElement("video");
     video.id = "video-" + id;
     video.src = filepath;
