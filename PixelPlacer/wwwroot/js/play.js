@@ -3,14 +3,25 @@ var BackGroundCanvasArray = [];
 var CanvasArray = [];
 var VideoMouseOverArray = [];
 var CanvasMouseOverArray = [];
+var OverlaySizePercentage;
 var videoTypeId;
 var backGround;
 var canvas;
 var Xposition;
 var Yposition;
+var Width;
+var Height;
+var Rotation;
+var backgroundVidHeight;
+var backgroundVidWidth;
+var parentContainerWidth;
+var globalCounter = 2;
 
-function CreateBackGround(backProjectVidoId, backFilePath, videoType)
+function CreateBackGround(backProjectVidoId, backFilePath, videoType, w, h)
 {
+    backgroundVidWidth = w;
+    backgroundVidHeight = h;
+
     var navBarHide = document.getElementById("Hide-Nav-on-PlayBack");
     document.body.style.padding = "0";
     navBarHide.style.display = "none";
@@ -23,8 +34,8 @@ function CreateBackGround(backProjectVidoId, backFilePath, videoType)
 
     backGround.src = backFilePath;
     backGround.id = "v-" + counter;
-    backGround.width = 640;
-    backGround.height = 360;
+    backGround.width = backgroundVidWidth;
+    backGround.height = backgroundVidHeight;
     backGround.loop = true;
 
     VideoArray.push(backGround);
@@ -37,10 +48,12 @@ function BackGroundMetaData(ev)
     var parentContainerWidth = parentContainer.getBoundingClientRect().width;
     var videoOriginalWidth = ev.target.videoWidth;
     var videoOriginalHeight = ev.target.videoHeight;
+
     var AlteredOriginalWidthInPercent = parentContainerWidth / videoOriginalWidth;
 
     ev.target.width = parentContainerWidth;
     ev.target.height = videoOriginalHeight * AlteredOriginalWidthInPercent;
+    
 
     if (videoTypeId == 2) {
         var backCanvas = document.createElement("canvas");
@@ -93,33 +106,38 @@ function BackGroundMetaData(ev)
     }
 }
 
-function CreateOverLay(ProjVideoId, filepath, x, y)
+function CreateOverLay(ProjVideoId, filepath, x, y, w, h, r)
 {
-    console.log("X : ", x);
-    console.log("Y : ", y);
     Xposition = x;
     Yposition = y;
+    Width = w;
+    Height = h;
+    Rotation = r;
+    globalCounter++
 
-    counter = 2;
+    var thing = parentContainerWidth / backgroundVidWidth;
+    console.log("what is this",  thing);
+
     var parentContainer = document.getElementById("parentContainer");
     var videoOverLayElement = document.createElement("video");
-    videoOverLayElement.id = "o-" + counter;
+    videoOverLayElement.id = "o-" + globalCounter;
     videoOverLayElement.src = filepath;
-    videoOverLayElement.width = 250;
-    videoOverLayElement.height = 150;
+    videoOverLayElement.width = Width ;
+    videoOverLayElement.height = Height;
     videoOverLayElement.loop = true;
+
 
     VideoArray.push(videoOverLayElement);
     VideoMouseOverArray.push(videoOverLayElement);
 
     canvas = document.createElement("canvas");
-    canvas.width = videoOverLayElement.width;
+    canvas.width = videoOverLayElement.width ;
     canvas.height = videoOverLayElement.height;
-    canvas.id = "c-" + counter;
+    canvas.id = "c-" + globalCounter;
     canvas.style.position = "absolute";
-    console.log("Xposition", Xposition + "px");
     canvas.style.left = Xposition + "px";
     canvas.style.top = Yposition + "px";
+    canvas.style.rotation = Rotation;
 
     var seriously = new Seriously();
     var src = seriously.source(videoOverLayElement);
@@ -145,7 +163,7 @@ function CreateOverLay(ProjVideoId, filepath, x, y)
 
     seriously.go();
     videoOverLayElement.play();
-    counter++
+    
 }
 
 
@@ -163,7 +181,7 @@ function PlayAll(ev)
     {
         if (VideoArray[i].paused) {
             VideoArray[i].play();
-            CanvasArray[i].removeEventListener("mouseover", MouseOver);
+            CanvasArray[i].removeEventListener("mouseover", BackGroundMouseOver);
             CanvasArray[i].removeEventListener("mouseout", MouseOut);
             CanvasArray[i].removeEventListener("click", ClickToPlay);
         } else {
@@ -179,7 +197,7 @@ function StopAll(ev)
     {
         VideoArray[i].currentTime = 0;
         VideoArray[i].play();
-        CanvasArray[i].removeEventListener("mouseover", MouseOver);
+        CanvasArray[i].removeEventListener("mouseover", BackGroundMouseOver);
         CanvasArray[i].removeEventListener("mouseout", MouseOut);
         CanvasArray[i].removeEventListener("click", ClickToPlay);
     }
@@ -193,13 +211,13 @@ function InteractivePlay(ev)
         VideoArray[i].currentTime = 0;
         if (CanvasArray[i].id == "c-1")
         {
-            CanvasArray[i].addEventListener("mouseover", MouseOver);
+            CanvasArray[i].addEventListener("mouseover", BackGroundMouseOver);
         }
         if (CanvasArray[i].id != "c-1")
         {
             for (var b = 0; b < CanvasMouseOverArray.length; b++)
             {
-                CanvasMouseOverArray[b].addEventListener("mouseover", MouseOver);
+                CanvasMouseOverArray[b].addEventListener("mouseover", OverlayMouseOver);
                 CanvasMouseOverArray[b].addEventListener("click", ClickToPlay);
             }
         }
@@ -208,13 +226,17 @@ function InteractivePlay(ev)
 
 function ClickToPlay(ev)
 {    
-    if (ev.target.id == "c-1") {
-        if (VideoArray[0].paused) {
+    if (ev.target.id == "c-1")
+    {
+        if (VideoArray[0].paused)
+        {
             VideoArray[0].play();
-        } else {
+        } else
+        {
             VideoArray[0].pause();    
         }
-    } else {
+    } else
+    {
         var canvasId = ev.target.id.slice(2, 3);
         for (var i = 0; i < CanvasArray.length; i++)
         {
@@ -232,7 +254,23 @@ function ClickToPlay(ev)
     }    
 }
 
-function MouseOver(ev)
+
+function OverlayMouseOver(ev)
+{
+    for (var i = 0; i < VideoMouseOverArray.length; i++) 
+    {
+        console.log("array", VideoMouseOverArray);
+        if (ev.target.id.replace("c-", "") == VideoMouseOverArray[i].id.replace("o-", "")) 
+        {
+            ev.target.addEventListener("mouseout", MouseOut);
+            VideoMouseOverArray[i].play();
+        }
+        
+    }
+}
+
+
+function BackGroundMouseOver(ev)
 {
     var backgroundVideoTarget = VideoArray[0];
 
@@ -242,11 +280,18 @@ function MouseOver(ev)
 
     if (ev.target.id != "c-1")
     {
-        console.log("target: ", ev.target);
         for (var i = 0; i < VideoMouseOverArray.length; i++)
         {
-            VideoMouseOverArray[i].play();
-            CanvasMouseOverArray[i].addEventListener("mouseout", MouseOut);
+            var canvasTargetId = ev.target.id.replace("c-", "");
+            var videoTargetId = VideoMouseOverArray[i].id.replace("o-", "");
+            if (canvasTargetId == videoTargetId) {
+                ev.target.addEventListener("mouseout", MouseOut);
+                VideoMouseOverArray[i].play();
+            } else if (canvasTargetId != VideoMouseOverArray[i].id.replace("o-", "")) 
+            {
+                CanvasMouseOverArray[i].removeEventListener("mouseover", MouseOver);
+                VideoMouseOverArray[i].pause();
+            }
         }
     } 
 }

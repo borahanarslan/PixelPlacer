@@ -30,7 +30,10 @@ namespace PixelPlacer.Models.ViewModels
                                    ProjVidId = pv.ProjectVideosId,
                                    BackGround = pv.BackGround,
                                    XPosition = pv.XPosition,
-                                   YPosition = pv.YPosition
+                                   YPosition = pv.YPosition,
+                                   Width = pv.Width,
+                                   Height = pv.Height
+            
                                }).SingleOrDefault();
 
             OverLayList = (from o in context.Video
@@ -48,7 +51,11 @@ namespace PixelPlacer.Models.ViewModels
                                ProjVidId = pv.ProjectVideosId,
                                BackGround = pv.BackGround,
                                XPosition = pv.XPosition,
-                               YPosition = pv.YPosition
+                               YPosition = pv.YPosition,
+                               Width = pv.Width,
+                               Height = pv.Height,
+                               Rotation = pv.Rotation
+
                            }).ToList();
                          
                             

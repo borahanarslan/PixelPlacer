@@ -10,7 +10,7 @@
     }
     @foreach (var item in Model.OverLayList)
     { 
-        <script>CreateOverLay(@item.ProjVidId, "@item.VFilePath.Replace(@"\", @"\\")", @item.XPosition, @item.YPosition)</script>
+        <script>CreateOverLay(@item.ProjVidId, "@item.VFilePath.Replace(@"\", @"\\")", @item.XPosition, @item.YPosition, @item.Width, @item.Height, @item.Rotation)</script>
     }    
 </div>
 <div>
