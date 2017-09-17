@@ -70,7 +70,7 @@ namespace PixelPlacer.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation(1, "User logged in.");
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToAction("Profile", "Home");
                 }
                 if (result.RequiresTwoFactor)
                 {
@@ -89,7 +89,7 @@ namespace PixelPlacer.Controllers
             }
 
             // If we got this far, something failed, redisplay form
-            return View(model);
+            return RedirectToAction("Profile", "Home");
         }
 
         //
@@ -141,7 +141,7 @@ namespace PixelPlacer.Controllers
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation(4, "User logged out.");
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            return RedirectToAction(nameof(AccountController.Login), "Account");
         }
 
         //
@@ -469,7 +469,7 @@ namespace PixelPlacer.Controllers
             }
             else
             {
-                return RedirectToAction(nameof(HomeController.Index), "Home");
+                return RedirectToAction(nameof(AccountController.Login), "Account");
             }
         }
 

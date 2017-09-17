@@ -8,7 +8,7 @@ namespace PixelPlacer.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Profile()
         {
             return View();
         }
