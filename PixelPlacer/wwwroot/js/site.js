@@ -8,6 +8,7 @@ ProjectObject.ProjectClass = []; // Object will hold IEnumerable of Objects with
 var isGreenScreen; // if value that is set = 2 then the DB videotype is green screen
 var Xposition;
 var Yposition;
+var ProjectVideoId;
 
 var backVideo; // store the background video element that is created
 
@@ -15,9 +16,10 @@ var backVideo; // store the background video element that is created
 // This function is called from the NewProjectDisplay.cshtml view
 // It accepts 2 arguments which is the filepath to the backgrounf video
 // and the videotype
-function createBackGroundCanvas(filepath, id)
+function createBackGroundCanvas(filepath, id, pId)
 {
     isGreenScreen = id;
+    ProjectVideoId = pId;
     // create new element to be drawn to canvas
     backVideo = document.createElement("video"); 
 
@@ -131,6 +133,16 @@ function OnMetaData(ev)
         });
         backVideo.play();
     }  
+
+    var projectVideo = {
+        XPosition: 0,
+        YPosition: 0,
+        Width: backCanvas.width,
+        Height: backCanvas.height,
+        Rotation: 0,
+        ProjectVideosId: ProjectVideoId
+    };
+    ProjectObject.ProjectClass.push(projectVideo);
 }
 
 /*  This methos is called from NewProjectDisplay.cshtml and accepts 3 arguments
@@ -258,6 +270,9 @@ function drop(ev) {
         if (currenObject.ProjectVideosId == ProjectId) {
             currenObject.XPosition = canvasX;
             currenObject.YPosition = canvasY;
+            currenObject.Width = canvas.width;
+            currenObject.Height = canvas.height;
+            currenObject.Rotation = canvas.style.rotation;
             foundObjectinArray = true;
         }       
     }
@@ -268,6 +283,9 @@ function drop(ev) {
         var projectVideo = {
             XPosition: canvasX,
             YPosition: canvasY,
+            Width: canvas.width,
+            Height: canvas.height,
+            Rotation: canvas.style.rotation,
             ProjectVideosId: ProjectId
         };
         ProjectObject.ProjectClass.push(projectVideo);

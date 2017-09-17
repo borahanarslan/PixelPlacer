@@ -10,9 +10,10 @@ namespace PixelPlacer.Classes
     public class SaveProjectClass
     {
         public int XPosition { get; set; }
-
         public int YPosition { get; set; }
-
+        public int Width { get; set; }
+        public int Height { get; set; }
+        public int Rotation { get; set; }
         public int ProjectVideosId { get; set; }
     }
 }

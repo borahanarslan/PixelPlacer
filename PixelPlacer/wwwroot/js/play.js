@@ -11,6 +11,10 @@ var Yposition;
 
 function CreateBackGround(backProjectVidoId, backFilePath, videoType)
 {
+    var navBarHide = document.getElementById("Hide-Nav-on-PlayBack");
+    document.body.style.padding = "0";
+    navBarHide.style.display = "none";
+
     var counter = 1;
     videoTypeId = videoType;
 

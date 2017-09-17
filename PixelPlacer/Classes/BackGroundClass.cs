@@ -12,10 +12,13 @@ namespace PixelPlacer.Classes
         public int VId { get; set; }
         public string VFilePath { get; set; }
         public int VTypeId { get; set; }
-        public int ProjId {get; set;}
+        public int ProjId { get; set; }
         public int ProjVidId { get; set; }
         public bool BackGround { get; set; }
         public int XPosition { get; set; }
         public int YPosition { get; set; }
+        public int Width { get; set; }
+        public int Height { get; set; }
+        public int Rotation {get; set;}
     }
 }

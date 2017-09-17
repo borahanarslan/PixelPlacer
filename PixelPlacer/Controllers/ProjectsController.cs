@@ -177,6 +177,9 @@ namespace PixelPlacer.Controllers
                     var projects = _context.ProjectVideos.SingleOrDefault(pv => pv.ProjectVideosId == item.ProjectVideosId);
                     projects.XPosition = item.XPosition;
                     projects.YPosition = item.YPosition;
+                    projects.Width = item.Width;
+                    projects.Height = item.Height;
+                    projects.Rotation = item.Rotation;
                     _context.ProjectVideos.Update(projects);
 
                 }

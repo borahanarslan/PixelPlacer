@@ -197,11 +197,17 @@ namespace PixelPlacer.Migrations
 
                     b.Property<bool>("BackGround");
 
+                    b.Property<int>("Height");
+
                     b.Property<int>("ProjectId");
+
+                    b.Property<int>("Rotation");
 
                     b.Property<string>("UserId");
 
                     b.Property<int>("VideoId");
+
+                    b.Property<int>("Width");
 
                     b.Property<int>("XPosition");
 
