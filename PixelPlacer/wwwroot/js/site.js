@@ -292,6 +292,20 @@ function drop(ev) {
         };
         ProjectObject.ProjectClass.push(projectVideo);
     }
+
+    canvas.draggable = false;
+    $(canvas).addClass("trans");
+    $(canvas).freetrans({
+        x: canvasX,
+        y: canvasY - backVideo.height,
+        'rot-origin': '0 0'
+    }).css({
+        border: "1px solid #CCCCCC"
+    });
+
+    $("#" + canvas.id).freetrans({
+        'rot-origin': '50% 50%'
+    });
 }
 
 /*  Event Listener on Save Button on NewProjectDisplay.cshtml

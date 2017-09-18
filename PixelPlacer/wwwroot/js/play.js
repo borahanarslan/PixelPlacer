@@ -17,6 +17,7 @@ var backgroundVidWidth;
 var parentContainerWidth;
 var globalCounter = 2;
 var SizeInPercent;
+var backCanvas;
 
 function CreateBackGround(backProjectVidoId, backFilePath, videoType, w, h)
 {
@@ -46,7 +47,7 @@ function CreateBackGround(backProjectVidoId, backFilePath, videoType, w, h)
     VideoArray.push(backGround);
 
     if (videoTypeId == 2) {
-        var backCanvas = document.createElement("canvas");
+        backCanvas = document.createElement("canvas");
         backCanvas.width = backGround.width;
         backCanvas.height = backGround.height;
         backCanvas.id = "c-" + counter;
@@ -75,7 +76,7 @@ function CreateBackGround(backProjectVidoId, backFilePath, videoType, w, h)
         seriously.go();
         backGround.play();
     } else {
-        var backCanvas = document.createElement("canvas");
+        backCanvas = document.createElement("canvas");
         backCanvas.id = "c-" + counter;
         backCanvas.width = backGround.width;
         backCanvas.height = backGround.height;
@@ -127,7 +128,7 @@ function CreateOverLay(ProjVideoId, filepath, x, y, w, h, r)
     canvas.id = "c-" + globalCounter;
     canvas.style.position = "absolute";
     canvas.style.left = Xposition + "px";
-    canvas.style.top = backCanvas.height - Yposition + "px";
+    canvas.style.top = Yposition + "px";
     canvas.style.rotation = Rotation;
 
     var seriously = new Seriously();

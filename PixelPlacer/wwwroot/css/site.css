@@ -1,6 +1,6 @@
 ﻿body {
     background: #353535;
-    color: whitesmoke;
+    /*color: whitesmoke;*/
     font-family: 'Lato', sans-serif !important;
 }
 
@@ -69,18 +69,31 @@ a  {
     border-left: 40px solid black;
     border-radius: 5px;
     width: 100%;
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 
 #RegisterContainer, #ProjectListContainer, #Profile-Container {
     margin-top: 60px;
     padding-top: 15px;
+    color: whitesmoke;
 }
 
 #CreateProjectContainer {
     margin-top: 20px;
     padding-top: 15px;
+}
 
+#Upload-Container {
+    margin-top: 60px;
+    padding-top: 15px;
+}
+
+.upload-font-label-color {
+    color :whitesmoke;
+}
+
+.form-style {
+    color: #222;
 }
 
 #vid-1 {
