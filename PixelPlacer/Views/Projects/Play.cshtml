@@ -3,21 +3,20 @@
 @{
     ViewData["Title"] = "Details";
 }
-<div id="parentContainer">
+<div id="parentContainer" class="box-showing">
     @if (Model.BackGroundVideo.BackGround == true)
     {
-        <script>CreateBackGround(@Model.BackGroundVideo.ProjVidId, "@Model.BackGroundVideo.VFilePath.Replace(@"\", @"\\")", @Model.BackGroundVideo.VTypeId)</script>
+        <script>CreateBackGround(@Model.BackGroundVideo.ProjVidId, "@Model.BackGroundVideo.VFilePath.Replace(@"\", @"\\")", @Model.BackGroundVideo.VTypeId, @Model.BackGroundVideo.Width, @Model.BackGroundVideo.Height)</script>
     }
     @foreach (var item in Model.OverLayList)
     { 
         <script>CreateOverLay(@item.ProjVidId, "@item.VFilePath.Replace(@"\", @"\\")", @item.XPosition, @item.YPosition, @item.Width, @item.Height, @item.Rotation)</script>
     }    
 </div>
-<div>
-    <button id="PlayButton" class="btn btn-info btn-lg">Play/Pause</button>
-    <button id="StopButton" class="btn btn-info btn-lg">Restart</button>
-    <button id="InteractiveButton" class="btn btn-info btn-lg">Interactive</button>
-
+<div class="row video-control-btns">
+        <button id="PlayButton" class="btn-xs red-btn col-xs-offset-4 col-xs-1 VideoButtons">Play/Pause</button>
+        <button id="StopButton" class="btn-xs red-btn col-xs-1 VideoButtons">Restart</button>
+        <button id="InteractiveButton" class="btn-xs red-btn col-xs-1 VideoButtons">Interactive</button>
+        <a asp-action="Index" class="btn-xs red-btn col-xs-1 VideoButtons">Back to List</a>
     @*<a asp-action="Edit" asp-route-id="@Model.ProjectId">Edit</a> |*@
-    <a asp-action="Index">Back to List</a>
 </div>

@@ -1,23 +1,14 @@
 @model PixelPlacer.Models.ViewModels.ProjectListViewModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Projects";
 }
 
-<h2>Index</h2>
 
-<p>
-    <a asp-action="NewProjectDisplay">Create New</a>
-</p>
+<div id="ProjectListContainer"></div>
+<h2>Projects</h2>
+<br /> 
 <table class="table">
-    <thead>         
-        <tr>
-                <th>
-                    Project Title
-                </th>
-            <th></th>
-        </tr>
-    </thead>
     <tbody>
     @foreach (var item in Model.Projects)
     {
@@ -26,12 +17,16 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                <a asp-action="Play" asp-route-id="@item.ProjectId">Play</a> |
-                <a asp-action="Edit" asp-route-id="@item.ProjectId">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@item.ProjectId">Delete</a>
+                <a asp-action="Play" asp-route-id="@item.ProjectId" class="btn btn-danger project-list-btn box-showing">Play</a> |                      
+                @*<a asp-action="Edit" asp-route-id="@item.ProjectId">Edit</a> |*@
+                <a asp-action="Delete" asp-route-id="@item.ProjectId" class="btn btn-danger project-list-btn box-showing">Delete</a>
             </td>
         </tr>
     }
 
     </tbody>
 </table>
+<br /><br />
+<p>
+    <a asp-action="NewProjectDisplay" class="btn btn-danger box-showing red-btn2">Create New</a>
+</p>

@@ -8,19 +8,17 @@
 {
     <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
         <ul class="nav navbar-nav navbar-right">
+            <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+            <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
             <li>
-                <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
-            </li>
-            <li>
-                <button type="submit" class="btn btn-link navbar-btn navbar-link">Log out</button>
+                <button type="submit" class="btn btn-link navbar-btn navbar-link log-out-btn">Log out</button>
             </li>
         </ul>
     </form>
-}
-else
+} else
 {
-    @*<ul class="nav navbar-nav navbar-right">
+    <ul class="nav navbar-nav navbar-right">
         <li><a asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
         <li><a asp-area="" asp-controller="Account" asp-action="Login">Log in</a></li>
-    </ul>*@
+    </ul>
 }

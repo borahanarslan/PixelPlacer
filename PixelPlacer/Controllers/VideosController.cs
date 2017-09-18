@@ -140,10 +140,10 @@ namespace PixelPlacer.Controllers
                 upload.Video.Thumbnail = "..\\..\\video\\thumbs\\" + thumbName;
                 _context.Add(upload.Video);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Profile", "Home");
             }
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Profile", "Home");
         }
         
 

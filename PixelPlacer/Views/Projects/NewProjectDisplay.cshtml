@@ -3,94 +3,107 @@
 @{
     ViewData["Title"] = "ProjectPageDisplay";
 }
+<div id="CreateProjectContainer">
+    <h2>Create a New Project</h2>
+    <br />
 
-<h2>Create a New Project</h2>
-<div asp-controller ="Projects" asp-action="VideoTypes" class="row">
-    @foreach (var type in @Model.VideoTypes)
-    {
-        if (type.VideoTypeId == 1)
+    <div asp-controller="Projects" asp-action="VideoTypes" class="row">
+        @foreach (var type in @Model.VideoTypes)
         {
-            <div class="col-md-offset-4 col-md-2">
-                <a asp-controller="Projects" asp-action="AddBackGroundVideo"  class="btn btn-default">
-                    Add BackGround
-                </a>
-            </div>       
-        }
-        else { 
-
-            <div class="col-md-2">
-                <a asp-controller="Projects" asp-action="AddOverLayVideo" class="btn btn-default">
-                    Add Green Screen
-                </a>
-            </div>
-        }
-    }
-</div>
-<div class="row">
-    @foreach (var item in Model.BackGround)
-    {   <div class="col-lg-8">
-        <h3>Background Video</h3>
-        <div id="vid-1" ondrop="drop(event)" ondragover="allowDrop(event)" style="position:relative; overflow:hidden";>
-            <script>createBackGroundCanvas("@item.VFilePath.Replace(@"\", @"\\")", @item.VTypeId, @item.ProjVidId)</script>            
-        </div>
-        <div class="col-sm-offset-4 col-sm-3">
-            <div>@item.VTitle</div>
-            <a asp-controller="Projects" asp-action="RemoveProjectVideo" asp-route-id="@item.ProjVidId" class="btn btn-info btn-sm">Remove</a>
-        </div>
-    </div>
-    }
-    <div class="col-lg-4">
-        <div class="row overlayVideo">
-            <h3>OverLay Videos</h3>
-            @foreach (var item in Model.OverLay)
+            if (type.VideoTypeId == 1)
             {
-                <div class="row">
-                    <div id="canvas-@item.ProjVidId" class="col-sm-5">
-                        <script>createCanvas("canvas-@item.ProjVidId", "@item.VFilePath.Replace(@"\", @"\\")", "@item.Thumb.Replace(@"\", @"\\")");</script>
-                    </div>
-                    <div class="col-sm-offset-4 col-sm-3">
-                       <div>@item.VTitle</div> 
-                        <a asp-controller="Projects" asp-action="RemoveProjectVideo" asp-route-id="@item.ProjVidId" class="btn btn-info btn-sm">Remove</a>
-                    </div>
+                <div class="col-md-offset-4 col-md-2">
+                    <a asp-controller="Projects" asp-action="AddBackGroundVideo" class="btn red-btn">
+                        Add BackGround
+                    </a>
                 </div>
-                <br />
             }
-        </div>
+            else
+            {
+
+                <div class="col-md-2">
+                    <a asp-controller="Projects" asp-action="AddOverLayVideo" class="btn red-btn">
+                        Add Green Screen
+                    </a>
+                </div>
+            }
+        }
     </div>
-
-    @if (Model.BackGround.Count > 0 && Model.OverLay.Count > 0) { 
-   
-     <div class="container" id="modalParent">
-        <!-- Trigger the modal with a button -->
-        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Save Project</button>
-
-        <!-- Modal -->
-        <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Give Your Project a Name</h4>
-                    </div>
-                        <br /><br />
-                    <div class="form-group">
-                        <label class="col-md-2 control-label">Title</label>
-                        <div class="col-md-10">
-                            <input id ="ProjectTitle" name="Title" class="form-control" />
-                        </div>
-                    </div> 
-                       <br /><br />
-                    <div class="modal-footer">
-                            <input type="button" value="Save" class="btn btn-primary" id="SaveButton"/>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
+    <div class="row">
+        @foreach (var item in Model.BackGround)
+        {   <div class="col-lg-8 col-md-8 col-sm-8">
+            <div class="row">
+                <h3>Background Video</h3>
+            </div>
+            <div class="row btn-create-project">
+                <div class="col-md-offset-4 col-md-3">@item.VTitle</div>
+                <div class="col-md-2">
+                    <a asp-controller="Projects" asp-action="RemoveProjectVideo" asp-route-id="@item.ProjVidId" class="btn btn-info btn-sm red-btn">Remove</a>
+                </div>
+            </div>
+            <div class="row">
+                <div id="vid-1" ondrop="drop(event)" ondragover="allowDrop(event)" style="position:relative; overflow:hidden;">
+                    <script>createBackGroundCanvas("@item.VFilePath.Replace(@"\", @"\\")", @item.VTypeId, @item.ProjVidId)</script>
                 </div>
             </div>
         </div>
-    </div>
-    }
-</div>
+        }
+        <div class="col-lg-4 col-md-4 col-sm-4">
+            <div class="row overlayVideo">
+                @if (Model.OverLay.Count > 0)
+                {
+                    <h3>OverLay Videos</h3>
+                    <h5>Drag and Drop Videos</h5>
 
-<div>
-    <a asp-controller="Home" asp-action="Profile">Back</a>
+                }
+                @foreach (var item in Model.OverLay)
+                {
+                    <div class="row">
+                        <div id="canvas-@item.ProjVidId" class="col-sm-5">
+                            <script>createCanvas("canvas-@item.ProjVidId", "@item.VFilePath.Replace(@"\", @"\\")", "@item.Thumb.Replace(@"\", @"\\")");</script>
+                        </div>
+                        <div class="col-sm-offset-4 col-sm-3">
+                            <div>@item.VTitle</div>
+                            <a asp-controller="Projects" asp-action="RemoveProjectVideo" asp-route-id="@item.ProjVidId" class="btn btn-info btn-sm red-btn">Remove</a>
+                        </div>
+                    </div>
+                    <br />
+                }
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        @if (Model.BackGround.Count > 0 && Model.OverLay.Count > 0)
+            {
+
+            <div class="container" id="modalParent">
+                <!-- Trigger the modal with a button -->
+                <button type="button" class="btn btn-info btn-lg red-btn" data-toggle="modal" data-target="#myModal">Save Project</button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close red-btn" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Give Your Project a Name</h4>
+                            </div>
+                            <br /><br />
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Title</label>
+                                <div class="col-md-10">
+                                    <input id="ProjectTitle" name="Title" class="form-control" />
+                                </div>
+                            </div>
+                            <br /><br />
+                            <div class="modal-footer">
+                                <input type="button" value="Save" class="btn btn-primary red-btn" id="SaveButton" />
+                                <button type="button" class="btn btn-default red-btn" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 </div>

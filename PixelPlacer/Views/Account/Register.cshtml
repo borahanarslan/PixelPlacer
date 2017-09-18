@@ -3,40 +3,45 @@
     ViewData["Title"] = "Register";
 }
 
-<h2>@ViewData["Title"].</h2>
+<div id="RegisterContainer">
+    <h2>@ViewData["Title"].</h2>
 
-<form asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
-    <h4>Create a new account.</h4>
-    <hr />
-    <div asp-validation-summary="All" class="text-danger"></div>
-    <div class="form-group">
-        <label asp-for="Email" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <input asp-for="Email" class="form-control" />
-            <span asp-validation-for="Email" class="text-danger"></span>
+    <form asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
+        <h4>Create a new account.</h4>
+        <hr />
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Email" class="col-md-2 control-label">Email :</label>
+            <div class="col-md-10">
+                <input asp-for="Email" class="form-control box-showing" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label asp-for="Password" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <input asp-for="Password" class="form-control" />
-            <span asp-validation-for="Password" class="text-danger"></span>
+        <br /><br />
+        <div class="form-group">
+            <label asp-for="Password" class="col-md-2 control-label">Passeword :</label>
+            <div class="col-md-10">
+                <input asp-for="Password" class="form-control box-showing" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label asp-for="ConfirmPassword" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <input asp-for="ConfirmPassword" class="form-control" />
-            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+        <br /><br />
+        <div class="form-group">
+            <label asp-for="ConfirmPassword" class="col-md-2 control-label">Confirm Password :</label>
+            <div class="col-md-10">
+                <input asp-for="ConfirmPassword" class="form-control box-showing" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <button type="submit" class="btn btn-default">Register</button>
+        <br /><br />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-default red-btn">Register</button>
+            </div>
         </div>
-    </div>
-</form>
-
+        <br /><br />
+    </form>
+</div>
 @section Scripts {
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }

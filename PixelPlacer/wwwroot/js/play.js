@@ -16,9 +16,15 @@ var backgroundVidHeight;
 var backgroundVidWidth;
 var parentContainerWidth;
 var globalCounter = 2;
+var SizeInPercent;
 
 function CreateBackGround(backProjectVidoId, backFilePath, videoType, w, h)
 {
+    var counter = 1;
+    var parentContainer = document.getElementById("parentContainer");
+    var parentContainerWidth = parentContainer.getBoundingClientRect().width;
+    SizeInPercent = parentContainerWidth / w;
+
     backgroundVidWidth = w;
     backgroundVidHeight = h;
 
@@ -30,37 +36,23 @@ function CreateBackGround(backProjectVidoId, backFilePath, videoType, w, h)
     videoTypeId = videoType;
 
     backGround = document.createElement("video");
-    backGround.addEventListener("loadedmetadata", BackGroundMetaData);
 
     backGround.src = backFilePath;
     backGround.id = "v-" + counter;
-    backGround.width = backgroundVidWidth;
-    backGround.height = backgroundVidHeight;
+    backGround.width = backgroundVidWidth * SizeInPercent;
+    backGround.height = backgroundVidHeight * SizeInPercent;
     backGround.loop = true;
 
     VideoArray.push(backGround);
-}
-
-function BackGroundMetaData(ev)
-{
-    var counter = 1;
-    var parentContainer = document.getElementById("parentContainer");
-    var parentContainerWidth = parentContainer.getBoundingClientRect().width;
-    var videoOriginalWidth = ev.target.videoWidth;
-    var videoOriginalHeight = ev.target.videoHeight;
-
-    var AlteredOriginalWidthInPercent = parentContainerWidth / videoOriginalWidth;
-
-    ev.target.width = parentContainerWidth;
-    ev.target.height = videoOriginalHeight * AlteredOriginalWidthInPercent;
-    
 
     if (videoTypeId == 2) {
         var backCanvas = document.createElement("canvas");
-        backCanvas.width = ev.target.width;
-        backCanvas.height = ev.target.height;
+        backCanvas.width = backGround.width;
+        backCanvas.height = backGround.height;
         backCanvas.id = "c-" + counter;
-        CanvasArray.push(backCanvas);
+        backCanvas.style.verticalAlign = "bottom";
+     
+
 
         var seriously = new Seriously();
         var src = seriously.source(backGround);
@@ -85,9 +77,9 @@ function BackGroundMetaData(ev)
         backGround.play();
     } else {
         var backCanvas = document.createElement("canvas");
-        backCanvas.id = "c-" + counter; 
-        backCanvas.width = ev.target.width;
-        backCanvas.height = ev.target.height;
+        backCanvas.id = "c-" + counter;
+        backCanvas.width = backGround.width;
+        backCanvas.height = backGround.height;
         CanvasArray.push(backCanvas);
 
         var context = backCanvas.getContext("2d");
@@ -98,13 +90,14 @@ function BackGroundMetaData(ev)
             (function loop() {
                 if (!this.paused && !this.ended) {
                     context.drawImage(backGround, 0, 0, backCanvas.width, backCanvas.height);
-                    setTimeout(loop, 1000 / 30); 
+                    setTimeout(loop, 1000 / 30);
                 }
             })();
         });
         backGround.play();
     }
 }
+
 
 function CreateOverLay(ProjVideoId, filepath, x, y, w, h, r)
 {
@@ -113,17 +106,14 @@ function CreateOverLay(ProjVideoId, filepath, x, y, w, h, r)
     Width = w;
     Height = h;
     Rotation = r;
-    globalCounter++
-
-    var thing = parentContainerWidth / backgroundVidWidth;
-    console.log("what is this",  thing);
+    globalCounter++; 
 
     var parentContainer = document.getElementById("parentContainer");
     var videoOverLayElement = document.createElement("video");
     videoOverLayElement.id = "o-" + globalCounter;
     videoOverLayElement.src = filepath;
-    videoOverLayElement.width = Width ;
-    videoOverLayElement.height = Height;
+    videoOverLayElement.width = Width * SizeInPercent;
+    videoOverLayElement.height = Height * SizeInPercent;
     videoOverLayElement.loop = true;
 
 
@@ -174,7 +164,7 @@ $(document).ready(function () {
 });
 
 
-// Function to play all videos and remove eventlisteners for mouseover, mouseout, and click on individual canvas
+ //Function to play all videos and remove eventlisteners for mouseover, mouseout, and click on individual canvas
 function PlayAll(ev)
 {
     for (var i = 0; i < VideoArray.length; i++)

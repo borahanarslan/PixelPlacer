@@ -1,6 +1,7 @@
 ﻿body {
     background: #353535;
-    color: whitesmoke
+    color: whitesmoke;
+    font-family: 'Lato', sans-serif !important;
 }
 
 /* Wrapping element */
@@ -12,6 +13,27 @@
     /* Set widths on the form inputs since otherwise they're 100% wide */
     input, select, textarea {
     max-width: 280px;
+}
+
+.navbar-brand { 
+    font-family: 'Bungee Inline', cursive;
+    font-size: 30px;
+}
+
+.remove-nav-margins {
+    background: #992900;
+    background: -webkit-linear-gradient( #ff5719, #992900,#661b00); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#ff5719, #992900,#661b00); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient( #ff5719,#992900,#661b00); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#ff5719, #992900,#661b00); /* Standard syntax */
+}
+
+a  {
+    color: whitesmoke!important;       
+ }
+
+.log-out-btn {
+    color: whitesmoke !important;
 }
 
 #HomePageHeader {
@@ -32,41 +54,131 @@
 }
 
 .remove-nav-margins {
-    margin: 0!important;
+    margin: 0 !important;
 }
 /*set width on Video Player, Play View in Video Views File*/
 #parentContainer {
     width: 95%;
     position: relative;
     overflow: hidden;
-    border: 3px solid black;
-    margin: 0 0 0 25px;
+    border: 7px solid black;
+    border-right: 40px solid black;
+    border-left: 40px solid black;
+    border-radius: 5px;
+    margin: 10px 0 0 25px;
     padding: 0;
+    background-color: whitesmoke !important;
+}
+
+
+#RegisterContainer, #ProjectListContainer, #Profile-Container {
+    margin-top: 60px;
+    padding-top: 15px;
+}
+
+#CreateProjectContainer {
+    margin-top: 20px;
+    padding-top: 15px;
+
+}
+
+#vid-1 {
+    background-color: whitesmoke;
+    margin-bottom: 10px;
 }
 
 
 .button-1 {
-    border: 3px solid red;
-    background-color: black;
+    border: 3px solid #ff7c4c;
+    background-color: #222;
     color: white;
 }
+
+    .button-1:hover {
+        background-color: #ff7c4c;
+        border: 3px solid #ff7c4c;
+        color: #222;
+        border-radius: 6px;
+    }
+
 
 .button-2 {
-    border: 3px solid purple;
-    background-color: black;
+    border: 3px solid #ff5719;
+    background-color: #222;
     color: white;
 }
+
+    .button-2:hover {
+        background-color: #ff5719;
+        border: 3px solid #ff5719;
+        color: #222;
+        border-radius: 6px;
+    }
 
 .button-3 {
-    border: 3px solid limegreen;
-    background-color: black;
+    border: 3px solid #cc3700;
+    background-color: #222;
     color: white;
 }
 
+    .button-3:hover {
+        background-color: #cc3700;
+        border: 3px solid #cc3700;
+        color: #222;
+        border-radius: 6px;
+    }
+
+
 .button-4 {
-    border: 3px solid pink;
-    background-color: black;
+    border: 3px solid #992900;
+    background-color: #222;
     color: white;
+}
+
+    .button-4:hover {
+        background-color: #992900;
+        border: 3px solid #992900;
+        color: #222;
+        border-radius: 6px;
+    }
+
+.red-btn {
+    background-color: #cc3700;
+    border: 2px solid #cc3700;
+    color: whitesmoke;
+    -webkit-box-shadow: 3px 3px 15px -1px #000;
+    box-shadow: 3px 3px 15px -1px #000;
+}
+    .red-btn:hover {
+        background-color: #ff5719;
+        border: 2px solid #ff5719;
+        color: whitesmoke;
+    }
+
+.red-btn2 {
+    background-color: #cc3700;
+    border: 2px solid #cc3700;
+}
+
+
+.project-list-btn {
+    margin: 7px 7px;
+}
+
+.video-control-btns {
+    margin-top: 8px;
+}
+
+.box-showing {
+    -webkit-box-shadow: 3px 3px 15px -1px #000;
+    box-shadow: 3px 3px 15px -1px #000;
+}
+
+.VideoButtons {
+    margin-right: 10px;
+}
+.btn-create-project {
+    margin-bottom: 5px;
 }
 /* Carousel */
 .carousel-caption p {
@@ -99,3 +211,13 @@
         display: none;
     }
 }
+
+.footer-class {
+    top: 90%;
+    left: 45%;
+}
+
+    .footer-class p {
+        text-align: center;
+        width: 100%;
+    }

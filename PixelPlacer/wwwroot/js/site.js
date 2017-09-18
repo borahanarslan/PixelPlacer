@@ -56,6 +56,7 @@ function OnMetaData(ev)
         has a property of width, the width will be used to set the width of the canvas
     */
     var backgroundParentWidth = backgroundParent.getBoundingClientRect().width;
+    console.log("container size", backgroundParentWidth);
 
     // original Width and height of loaded video retrieved from metadata
     var videoWidth = ev.target.videoWidth;
@@ -117,6 +118,7 @@ function OnMetaData(ev)
         backCanvas.id = "background-video"; // set the ID so the drop function can be added
         backCanvas.width = ev.target.width;
         backCanvas.height = ev.target.height;
+        backCanvas.style.verticalAlign = "bottom";
 
         var context = backCanvas.getContext("2d");
         backgroundParent.appendChild(backCanvas);
@@ -309,7 +311,7 @@ $(document).ready(function () {
             data: ProjectObject,
             success: function (result) {
                 console.log("I'm awesome", result);
-                window.location.href = "/"
+                window.location.href = "/Home/Profile"
             }
         });
     });
