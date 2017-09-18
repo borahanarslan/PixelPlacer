@@ -51,8 +51,7 @@ function CreateBackGround(backProjectVidoId, backFilePath, videoType, w, h)
         backCanvas.height = backGround.height;
         backCanvas.id = "c-" + counter;
         backCanvas.style.verticalAlign = "bottom";
-     
-
+        CanvasArray.push(backCanvas);    
 
         var seriously = new Seriously();
         var src = seriously.source(backGround);
@@ -108,6 +107,8 @@ function CreateOverLay(ProjVideoId, filepath, x, y, w, h, r)
     Rotation = r;
     globalCounter++; 
 
+    console.log("Y position", Yposition);
+
     var parentContainer = document.getElementById("parentContainer");
     var videoOverLayElement = document.createElement("video");
     videoOverLayElement.id = "o-" + globalCounter;
@@ -126,7 +127,7 @@ function CreateOverLay(ProjVideoId, filepath, x, y, w, h, r)
     canvas.id = "c-" + globalCounter;
     canvas.style.position = "absolute";
     canvas.style.left = Xposition + "px";
-    canvas.style.top = Yposition + "px";
+    canvas.style.top = backCanvas.height - Yposition + "px";
     canvas.style.rotation = Rotation;
 
     var seriously = new Seriously();
@@ -195,11 +196,11 @@ function StopAll(ev)
 
 function InteractivePlay(ev)
 {
-    for (var i = 0; i < VideoArray.length; i++)
+    for (var i = 0; i < CanvasArray.length; i++)
     {
         VideoArray[i].pause();
         VideoArray[i].currentTime = 0;
-        if (CanvasArray[i].id == "c-1")
+        if (VideoArray[i].id == "v-1")
         {
             CanvasArray[i].addEventListener("mouseover", BackGroundMouseOver);
         }
@@ -249,7 +250,6 @@ function OverlayMouseOver(ev)
 {
     for (var i = 0; i < VideoMouseOverArray.length; i++) 
     {
-        console.log("array", VideoMouseOverArray);
         if (ev.target.id.replace("c-", "") == VideoMouseOverArray[i].id.replace("o-", "")) 
         {
             ev.target.addEventListener("mouseout", MouseOut);
@@ -263,7 +263,6 @@ function OverlayMouseOver(ev)
 function BackGroundMouseOver(ev)
 {
     var backgroundVideoTarget = VideoArray[0];
-
     if (ev.target.id == "c-1") {
         backgroundVideoTarget.play();
     } 

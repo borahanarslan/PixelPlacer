@@ -58,18 +58,19 @@ a  {
 }
 /*set width on Video Player, Play View in Video Views File*/
 #parentContainer {
-    width: 95%;
+    width: 100%;
     position: relative;
-    overflow: hidden;
+    padding: 0;
+    background-color: whitesmoke !important;
+}
+#Parent-Border-Container {
     border: 7px solid black;
     border-right: 40px solid black;
     border-left: 40px solid black;
     border-radius: 5px;
-    margin: 10px 0 0 25px;
-    padding: 0;
-    background-color: whitesmoke !important;
+    width: 100%;
+    overflow: hidden;
 }
-
 
 #RegisterContainer, #ProjectListContainer, #Profile-Container {
     margin-top: 60px;

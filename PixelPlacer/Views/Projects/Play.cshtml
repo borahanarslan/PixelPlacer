@@ -3,15 +3,17 @@
 @{
     ViewData["Title"] = "Details";
 }
-<div id="parentContainer" class="box-showing">
-    @if (Model.BackGroundVideo.BackGround == true)
-    {
-        <script>CreateBackGround(@Model.BackGroundVideo.ProjVidId, "@Model.BackGroundVideo.VFilePath.Replace(@"\", @"\\")", @Model.BackGroundVideo.VTypeId, @Model.BackGroundVideo.Width, @Model.BackGroundVideo.Height)</script>
-    }
-    @foreach (var item in Model.OverLayList)
-    { 
-        <script>CreateOverLay(@item.ProjVidId, "@item.VFilePath.Replace(@"\", @"\\")", @item.XPosition, @item.YPosition, @item.Width, @item.Height, @item.Rotation)</script>
-    }    
+<div id="Parent-Border-Container">
+    <div id="parentContainer" class="box-showing">
+        @if (Model.BackGroundVideo.BackGround == true)
+        {
+            <script>CreateBackGround(@Model.BackGroundVideo.ProjVidId, "@Model.BackGroundVideo.VFilePath.Replace(@"\", @"\\")", @Model.BackGroundVideo.VTypeId, @Model.BackGroundVideo.Width, @Model.BackGroundVideo.Height)</script>
+        }
+        @foreach (var item in Model.OverLayList)
+        {
+            <script>CreateOverLay(@item.ProjVidId, "@item.VFilePath.Replace(@"\", @"\\")", @item.XPosition, @item.YPosition, @item.Width, @item.Height, @item.Rotation)</script>
+        }
+    </div>
 </div>
 <div class="row video-control-btns">
         <button id="PlayButton" class="btn-xs red-btn col-xs-offset-4 col-xs-1 VideoButtons">Play/Pause</button>
