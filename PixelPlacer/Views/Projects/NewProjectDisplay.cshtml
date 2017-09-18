@@ -31,22 +31,23 @@
     </div>
     <div class="row">
         @foreach (var item in Model.BackGround)
-        {   <div class="col-lg-8 col-md-8 col-sm-8">
+        {   
+          <div class="col-lg-8 col-md-8 col-sm-8">
             <div class="row">
                 <h3>Background Video</h3>
             </div>
-            <div class="row btn-create-project">
-                <div class="col-md-offset-4 col-md-3">@item.VTitle</div>
-                <div class="col-md-2">
+            @*<div class="row">*@
+                <a><h4>@item.VTitle</h4></a>
+                @*<div class="col-md-2">*@
                     <a asp-controller="Projects" asp-action="RemoveProjectVideo" asp-route-id="@item.ProjVidId" class="btn btn-info btn-sm red-btn">Remove</a>
-                </div>
-            </div>
+                @*</div>*@
+            @*</div>*@
             <div class="row">
                 <div id="vid-1" ondrop="drop(event)" ondragover="allowDrop(event)" style="position:relative; overflow:hidden;">
                     <script>createBackGroundCanvas("@item.VFilePath.Replace(@"\", @"\\")", @item.VTypeId, @item.ProjVidId)</script>
                 </div>
             </div>
-        </div>
+         </div>
         }
         <div class="col-lg-4 col-md-4 col-sm-4">
             <div class="row overlayVideo">
@@ -63,7 +64,7 @@
                             <script>createCanvas("canvas-@item.ProjVidId", "@item.VFilePath.Replace(@"\", @"\\")", "@item.Thumb.Replace(@"\", @"\\")");</script>
                         </div>
                         <div class="col-sm-offset-4 col-sm-3">
-                            <div>@item.VTitle</div>
+                            <h4>@item.VTitle</h4>
                             <a asp-controller="Projects" asp-action="RemoveProjectVideo" asp-route-id="@item.ProjVidId" class="btn btn-info btn-sm red-btn">Remove</a>
                         </div>
                     </div>
@@ -106,4 +107,6 @@
             </div>
         }
     </div>
+    <br /> <br />
+    <a asp-action="Profile" asp-controller="Home">Back</a>
 </div>

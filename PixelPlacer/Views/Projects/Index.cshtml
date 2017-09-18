@@ -6,15 +6,15 @@
 
 
 <div id="ProjectListContainer"></div>
-<h2>Projects</h2>
+    <h2 style="color:whitesmoke;">My Projects</h2>
 <br /> 
 <table class="table">
     <tbody>
     @foreach (var item in Model.Projects)
     {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
+            <td style="color:whitesmoke;">
+                <h5> @Html.DisplayFor(modelItem => item.Title)</h5>
             </td>
             <td>
                 <a asp-action="Play" asp-route-id="@item.ProjectId" class="btn btn-danger project-list-btn box-showing">Play</a> |                      
@@ -28,5 +28,6 @@
 </table>
 <br /><br />
 <p>
-    <a asp-action="NewProjectDisplay" class="btn btn-danger box-showing red-btn2">Create New</a>
+    <a asp-action="NewProjectDisplay" class="btn btn-danger box-showing red-btn2 btn-spacing">Create New</a>
+    <a asp-action="Profile" asp-controller="Home" class="btn btn-danger box-showing red-btn2 btn-spacing">Back</a>
 </p>

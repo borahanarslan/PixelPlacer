@@ -4,45 +4,47 @@
     ViewData["Title"] = "Edit";
 }
 
-<h2>Edit</h2>
+<div class="Edit-Video-Upload-Container">
+    <h2>Edit</h2>
+    <form asp-action="SaveUploadChanges">
+        <div class="form-horizontal">
+            <h4 style="margin-top: 10px;">Video</h4>
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="@Model.Video.VideoId" />
+            <div class="form-group">
+                <label asp-for="@Model.Video.VideoTitle" class="col-md-2 control-label" style="color:whitesmoke;"></label>
+                <div class="col-md-10">
+                    <input asp-for="@Model.Video.VideoTitle" class="form-control" />
+                    <span asp-validation-for="@Model.Video.VideoTitle" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <label asp-for="@Model.Video.VideoTypeId" class="col-md-2 control-label" style="color:whitesmoke;"></label>
+                    @Html.DropDownList(
+                    "Video.VideoTypeId",
+                    @Model.VideoTypeList,
+                    new
+                    {
+                    @name = "Video.VideoTypeId"
+                    })
+                    <input type="hidden" asp-for="@Model.Video.VideoTypeId" class="form-control" />
+                    <span asp-validation-for="@Model.Video.VideoTypeId" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save Changes" class="btn red-btn btn-spacing" />
+                    <a asp-action="Index"class="btn red-btn btn-spacing" >Back to List</a>
+                </div>
+            </div>
+        </div>
+    </form>
 
-<form asp-action="SaveUploadChanges">
-    <div class="form-horizontal">
-        <h4>Video</h4>
-        <hr />
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <input type="hidden" asp-for="@Model.Video.VideoId" />
-        <div class="form-group">
-            <label asp-for="@Model.Video.VideoTitle" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="@Model.Video.VideoTitle" class="form-control" />
-                <span asp-validation-for="@Model.Video.VideoTitle" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-10">
-                <label asp-for="@Model.Video.VideoTypeId" class="col-md-2 control-label"></label>
-                @Html.DropDownList(
-             "Video.VideoTypeId",
-             @Model.VideoTypeList,
-             new
-             {
-                 @name = "Video.VideoTypeId"
-             })
-                <input type="hidden" asp-for="@Model.Video.VideoTypeId" class="form-control" />
-                <span asp-validation-for="@Model.Video.VideoTypeId" class="text-danger" />
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save Changes" class="btn btn-default" />
-            </div>
-        </div>
+    <div>
+        
     </div>
-</form>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

@@ -4,29 +4,31 @@
     ViewData["Title"] = "Delete";
 }
 
-<h2>Delete</h2>
+<div id="Delete-Video-Container">
+    <h2>Delete</h2>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <input type="hidden" asp-for="VideoId" />
-        <input  type="hidden" asp-for="VideoFilePath"/>
-        <input type="hidden" asp-for="VideoTypeId" />
-        <dd>
-            <strong> @Html.DisplayFor(model => model.VideoTitle)</strong>
-        </dd>
-        <dd>
-            <img src="@Model.Thumbnail"/>
-        </dd>
-        <dd>
-        <br /><br />
-            <form asp-action="Delete">
-                <div class="form-actions no-color">
-                    <input type="submit" value="Delete" class="btn btn-default" /> 
-                    <a asp-action="Index" class="btn btn-default">Back</a>
-                </div>
-            </form>
-        </dd>
-    </dl>   
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <input type="hidden" asp-for="VideoId" />
+            <input type="hidden" asp-for="VideoFilePath" />
+            <input type="hidden" asp-for="VideoTypeId" />
+            <dd>
+                 <h4><strong>@Html.DisplayFor(model => model.VideoTitle)</strong></h4>
+            </dd>
+            <dd>
+                <img src="@Model.Thumbnail" />
+            </dd>
+            <dd>
+                <br /><br />
+                <form asp-action="Delete">
+                    <div class="form-actions no-color">
+                        <input type="submit" value="Delete" class="btn red-btn btn-spacing" />
+                        <a asp-action="Index" class="btn red-btn btn-spacing">Back</a>
+                    </div>
+                </form>
+            </dd>
+        </dl>
+    </div>
 </div>

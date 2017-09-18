@@ -8,8 +8,8 @@
 <h2 style="color:whitesmoke;">My Uploads</h2>
 <br />
 <p>
-    <a asp-action="Upload" class="btn-sm red-btn">Upload</a> | 
-    <a asp-action="Profile" asp-controller="Home" class="btn-sm red-btn">Back</a>
+    <a asp-action="Upload" class="btn-sm red-btn btn-spacing">Upload</a> 
+    <a asp-action="Profile" asp-controller="Home" class="btn-sm red-btn btn-spacing">Back</a>
 </p>
 <br />
 <table class="table">
@@ -17,13 +17,13 @@
         <tr>
                                 
             <th style="color:whitesmoke;">
-                @Html.DisplayNameFor(model => model.Thumbnail)
+                <h4><strong>@Html.DisplayNameFor(model => model.Thumbnail)</strong></h4>
             </th>
             <th style="color:whitesmoke;">
-                @Html.DisplayNameFor(model => model.VideoTitle)
+                <h4><strong>@Html.DisplayNameFor(model => model.VideoTitle)</strong></h4>
             </th>
             <th style="color:whitesmoke;">
-                @Html.DisplayNameFor(model => model.VideoTypeId)
+                <h4><strong>@Html.DisplayNameFor(model => model.VideoTypeId)</strong></h4>
             </th>
             <th></th>
         </tr>

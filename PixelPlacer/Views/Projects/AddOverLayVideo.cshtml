@@ -11,12 +11,12 @@
     {
         <div class="col-md-4">
             <br /><br />
-            <p> @item.VideoTitle</p>
+            <h5 style="color:whitesmoke; text-align:center"> @item.VideoTitle</h5>
 
             <form asp-controller="Projects" asp-action="AddOverLayVideoToDB">
                 <input type="hidden" value="@item.VideoId" name="id" />
                 <img src=@item.Thumbnail>
-                <input type="submit" value="Add Me" class="btn" />
+                <input type="submit" value="Add Me" class="btn red-btn" style="margin-top: 10px; margin-left:35%;" />
             </form>
         </div>
     }
