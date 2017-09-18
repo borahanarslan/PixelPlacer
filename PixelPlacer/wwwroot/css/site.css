@@ -81,6 +81,7 @@ a  {
 #CreateProjectContainer {
     margin-top: 20px;
     padding-top: 15px;
+    color: whitesmoke;
 }
 
 #Upload-Container {
@@ -88,8 +89,14 @@ a  {
     padding-top: 15px;
 }
 
+#MyUploads-Index-Container {
+    color: whitesmoke;
+    margin-top: 60px;
+    padding-top: 15px;
+}
+
 .upload-font-label-color {
-    color :whitesmoke;
+    color: whitesmoke;
 }
 
 .form-style {

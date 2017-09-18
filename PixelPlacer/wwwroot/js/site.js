@@ -295,7 +295,7 @@ function drop(ev) {
 
     canvas.draggable = false;
     $(canvas).addClass("trans");
-    $(canvas).freetrans({
+    $(canvas).freetrans({       
         x: canvasX,
         y: canvasY - backVideo.height,
         'rot-origin': '0 0'
@@ -306,7 +306,18 @@ function drop(ev) {
     $("#" + canvas.id).freetrans({
         'rot-origin': '50% 50%'
     });
+
+    $(canvas).mouseup("mouseup", MouseUp);
 }
+
+function MouseUp(ev)
+{
+    var canvas = event.target;
+    var b = $(canvas).freetrans('getBounds');
+    console.log(b.width, b.height, b.xmin, b.ymin);
+
+}
+
 
 /*  Event Listener on Save Button on NewProjectDisplay.cshtml
 Updates the title in the DB for a ProjectObjectOnce a title has been added

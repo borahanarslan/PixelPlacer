@@ -4,22 +4,25 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
-
+<div id="MyUploads-Index-Container"></div>
+<h2 style="color:whitesmoke;">My Uploads</h2>
+<br />
 <p>
-    <a asp-action="Upload">Upload New Video</a>
+    <a asp-action="Upload" class="btn-sm red-btn">Upload</a> | 
+    <a asp-action="Profile" asp-controller="Home" class="btn-sm red-btn">Back</a>
 </p>
+<br />
 <table class="table">
     <thead>
         <tr>
                                 
-            <th>
+            <th style="color:whitesmoke;">
                 @Html.DisplayNameFor(model => model.Thumbnail)
             </th>
-            <th>
+            <th style="color:whitesmoke;">
                 @Html.DisplayNameFor(model => model.VideoTitle)
             </th>
-            <th>
+            <th style="color:whitesmoke;">
                 @Html.DisplayNameFor(model => model.VideoTypeId)
             </th>
             <th></th>
@@ -31,24 +34,24 @@
             <td>
                 <img src="@item.Thumbnail" />
             </td>
-            <td>
+            <td style="color:whitesmoke;">
                 @Html.DisplayFor(modelItem => item.VideoTitle)
             </td>
              @if (@item.VideoTypeId == 1)
               {
-                <td>
+                <td style="color:whitesmoke;">
                 Standard
                 </td>
               }
               else if (@item.VideoTypeId == 2)
               {
-                <td>
+                <td style="color:whitesmoke;">
                     Green Screen
                 </td>
               }
             <td>
-                <a asp-action="Edit" asp-route-id="@item.VideoId">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@item.VideoId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.VideoId" class="btn red-btn">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@item.VideoId" class="btn red-btn">Delete</a>
             </td>
         </tr>
 }
