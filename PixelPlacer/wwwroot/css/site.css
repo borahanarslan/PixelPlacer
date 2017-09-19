@@ -72,40 +72,28 @@ a  {
     overflow: hidden;
 }
 
-#RegisterContainer, #ProjectListContainer, #Profile-Container, #Delete-Project-Container {
+#RegisterContainer, #ProjectListContainer, #Profile-Container, #Delete-Project-Container, #CreateProjectContainer {
     margin-top: 40px;
     padding-top: 15px;
     color: whitesmoke;
 }
 
-#CreateProjectContainer {
-    color: whitesmoke;
-}
 
-#Upload-Container {
+#MyUploads-Index-Container, #Upload-Container {
+    padding-top: 15px;
     margin-top: 60px;
-    padding-top: 15px;
 }
 
-#MyUploads-Index-Container {
-    color: whitesmoke;
-    /*margin-top: 10px;*/
-    padding-top: 15px;
-}
-
-#Login-Container, #Delete-Video-Container, h1, h2, h3, input, a, p {
+#Login-Container, #Delete-Video-Container, #Upload-Container, #Edit-Video-Upload-Container, #MyUploads-Index-Container, #CreateProjectContainer, h1, h2, h3, h4, input, a, p {
     color: whitesmoke;
 }
 
-.upload-font-label-color {
-    color: whitesmoke;
+    
+ #Edit-Video-Upload-Container {
+        margin-top: 60px;
+        padding-top: 15px;
 }
 
-#Edit-Video-Upload-Container h1, h2, h4 {
-    color: whitesmoke;
-    margin-top: 60px;
-    padding-top: 15px;
-}
 
 .form-style {
     color: #222;
@@ -195,7 +183,7 @@ a  {
 }
 
 .btn-spacing {
-    margin: 5px;
+    margin: 0 5px 0 5px;
 }
 
 .project-list-btn {
@@ -217,7 +205,7 @@ a  {
 .btn-create-project {
     margin-bottom: 5px;
 }
-/* Carousel */
+/* Carousel 
 .carousel-caption p {
     font-size: 20px;
     line-height: 1.4;

@@ -13,6 +13,7 @@ namespace PixelPlacer.Models.ViewModels
     public class UploadVideoViewModel
     {
         public Video Video { get; set; }
+        public VideoType VT { get; set; }
 
         public IFormFile UserVideo { get; set; }
 
@@ -20,8 +21,10 @@ namespace PixelPlacer.Models.ViewModels
 
         public UploadVideoViewModel(ApplicationDbContext context)
         {
-            // create a drop down that displays video types
+
             Video = new Video();
+
+            // create a drop down that displays video types
             this.VideoTypeList = context.VideoType
                                .OrderBy(v => v.Category)
                                .AsEnumerable()

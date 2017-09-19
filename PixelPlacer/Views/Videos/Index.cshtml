@@ -4,56 +4,60 @@
     ViewData["Title"] = "Index";
 }
 
-<div id="MyUploads-Index-Container"></div>
-<h2 style="color:whitesmoke;">My Uploads</h2>
-<br />
-<p>
-    <a asp-action="Upload" class="btn-sm red-btn btn-spacing">Upload</a> 
-    <a asp-action="Profile" asp-controller="Home" class="btn-sm red-btn btn-spacing">Back</a>
-</p>
-<br />
-<table class="table">
-    <thead>
-        <tr>
-                                
-            <th style="color:whitesmoke;">
-                <h4><strong>@Html.DisplayNameFor(model => model.Thumbnail)</strong></h4>
-            </th>
-            <th style="color:whitesmoke;">
-                <h4><strong>@Html.DisplayNameFor(model => model.VideoTitle)</strong></h4>
-            </th>
-            <th style="color:whitesmoke;">
-                <h4><strong>@Html.DisplayNameFor(model => model.VideoTypeId)</strong></h4>
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>                        
-            <td>
-                <img src="@item.Thumbnail" />
-            </td>
-            <td style="color:whitesmoke;">
-                @Html.DisplayFor(modelItem => item.VideoTitle)
-            </td>
-             @if (@item.VideoTypeId == 1)
-              {
-                <td style="color:whitesmoke;">
-                Standard
-                </td>
-              }
-              else if (@item.VideoTypeId == 2)
-              {
-                <td style="color:whitesmoke;">
-                    Green Screen
-                </td>
-              }
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.VideoId" class="btn red-btn">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@item.VideoId" class="btn red-btn">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div id="MyUploads-Index-Container">
+    <h2 style="color:whitesmoke;">My Uploads</h2>
+    <br />
+    <p>
+        <a asp-action="Upload" class="btn-sm red-btn btn-spacing">Upload</a>
+        <a asp-action="Profile" asp-controller="Home" class="btn-sm red-btn btn-spacing">Home</a>
+    </p>
+    <br />
+    <table class="table">
+        <thead>
+            <tr>
+
+                <th>
+                    <h4>@Html.DisplayNameFor(model => model.Thumbnail)</h4>
+                </th>
+                <th>
+                    <h4>@Html.DisplayNameFor(model => model.VideoTitle)</h4>
+                </th>
+                <th>
+                    <h4>@Html.DisplayNameFor(model => model.VideoTypeId)</h4>
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <img src="@item.Thumbnail" />
+                    </td>
+                    <td style="color:whitesmoke;">
+                        @Html.DisplayFor(modelItem => item.VideoTitle)
+                    </td>
+                    @if (@item.VideoTypeId == 1)
+                    {
+                        <td style="color:whitesmoke;">
+                            Standard
+                        </td>
+                    }
+                    else if (@item.VideoTypeId == 2)
+                    {
+                        <td style="color:whitesmoke;">
+                            Green Screen
+                        </td>
+                    }
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.VideoId" class="btn red-btn btn-spacing">Edit</a> |
+                        <a asp-action="Delete" asp-route-id="@item.VideoId" class="btn red-btn btn-spacing">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a asp-action="Profile" asp-controller="Home">Home</a>
+</div>
+

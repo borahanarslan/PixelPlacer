@@ -311,6 +311,7 @@ function drop(ev) {
     $(canvas).mouseup("mouseup", MouseUp);
 }
 
+
 function MouseUp(ev)
 {
     var canvas = event.target;

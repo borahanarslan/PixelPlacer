@@ -7,15 +7,15 @@
 <div id="Delete-Video-Container">
     <h2>Delete</h2>
 
-    <h3>Are you sure you want to delete this?</h3>
+    <h3>Are you sure you want to delete this Video?</h3>
     <div>
         <hr />
-        <dl class="dl-horizontal">
+        <dl style="text-align:center;">
             <input type="hidden" asp-for="VideoId" />
             <input type="hidden" asp-for="VideoFilePath" />
             <input type="hidden" asp-for="VideoTypeId" />
             <dd>
-                 <h4><strong>@Html.DisplayFor(model => model.VideoTitle)</strong></h4>
+                 <h4>@Html.DisplayFor(model => model.VideoTitle)</h4>
             </dd>
             <dd>
                 <img src="@Model.Thumbnail" />
