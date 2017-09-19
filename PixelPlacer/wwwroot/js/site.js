@@ -87,6 +87,7 @@ function OnMetaData(ev)
         backCanvas.id = "background-video"; // set the ID so the drop function can be added
         backCanvas.width = ev.target.width;
         backCanvas.height = ev.target.height;
+        backCanvas.style.verticalAlign = "bottom";
 
         var seriously = new Seriously();
 
