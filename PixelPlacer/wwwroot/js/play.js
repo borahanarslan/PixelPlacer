@@ -18,13 +18,14 @@ var parentContainerWidth;
 var globalCounter = 2;
 var SizeInPercent;
 var backCanvas;
-var testSize;
+var PlayParentContainer;
 
 function CreateBackGround(backProjectVidoId, backFilePath, videoType, w, h)
 {
     var counter = 1;
     var parentContainer = document.getElementById("parentContainer");
     var parentContainerWidth = parentContainer.getBoundingClientRect().width;
+    PlayParentContainer = parentContainer.getBoundingClientRect();
     SizeInPercent = parentContainerWidth / w;
     testSize = parentContainerWidth / h;
 
@@ -103,14 +104,14 @@ function CreateBackGround(backProjectVidoId, backFilePath, videoType, w, h)
 
 function CreateOverLay(ProjVideoId, filepath, x, y, w, h, r)
 {
+
     Xposition = x;
     Yposition = y;
     Width = w;
     Height = h;
     Rotation = r;
     globalCounter++; 
-    var heightYposition = backCanvas.height - backgroundVidHeight;
-
+    
 
     var parentContainer = document.getElementById("parentContainer");
     var videoOverLayElement = document.createElement("video");
@@ -125,12 +126,12 @@ function CreateOverLay(ProjVideoId, filepath, x, y, w, h, r)
     VideoMouseOverArray.push(videoOverLayElement);
 
     canvas = document.createElement("canvas");
-    canvas.width = videoOverLayElement.width ;
+    canvas.width = videoOverLayElement.width;
     canvas.height = videoOverLayElement.height;
     canvas.id = "c-" + globalCounter;
     canvas.style.position = "absolute";
-    canvas.style.left = Xposition + "px";
-    canvas.style.top = (Yposition + heightYposition) + "px";
+    canvas.style.left = (Xposition * SizeInPercent) + "px";
+    canvas.style.top = (Yposition * SizeInPercent) + "px";
     canvas.style.rotation = Rotation;
 
     var seriously = new Seriously();
@@ -140,8 +141,8 @@ function CreateOverLay(ProjVideoId, filepath, x, y, w, h, r)
     chroma.source = src;
 
     var resize = seriously.transform("reformat");
-    resize.width = videoOverLayElement.width;
-    resize.height = videoOverLayElement.height;
+    resize.width = canvas.width;
+    resize.height = canvas.height;
     resize.mode = 'distort';
     resize.source = chroma;
     target.source = resize;

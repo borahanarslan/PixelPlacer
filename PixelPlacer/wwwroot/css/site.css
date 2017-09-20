@@ -62,12 +62,12 @@ a  {
     position: relative;
     padding: 0;
     background-color: whitesmoke !important;
+    /*border-left: 40px solid black;*/
 }
 #Parent-Border-Container {
-    border: 7px solid black;
-    border-right: 40px solid black;
-    border-left: 40px solid black;
-    border-radius: 5px;
+    /*border: 7px solid black;*/
+    /*border-right: 40px solid black;*/
+    /*border-radius: 5px;*/
     width: 100%;
     overflow: hidden;
 }

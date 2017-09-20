@@ -314,26 +314,32 @@ function drop(ev) {
 
 function TransformMouseUp(ev)
 {
-    var canvas = event.target;
-    $(canvas).freetrans({ 'rot-origin': '0' });
-    var b = $(canvas).freetrans('getBounds');
+    var canvas = ev.target;
+
+    // get the width, height, x, and y for canvas
+    var canvasBounds = canvas.getBoundingClientRect();
+    // get the width, height, x, and y for parent container
+    var parentBounds = document.getElementById("background-video").getBoundingClientRect();
+
+    canvasX = canvasBounds.left - parentBounds.left;
+    canvasY = canvasBounds.top - parentBounds.top;
 
     // to pass the ProjectVideoId remove the string added to make a custome id
     var ProjectId = canvas.id.replace("c-canvas-", "");
 
     // To avoid duplicate objects in the array, loop through the Array length
     for (var i = 0; i < ProjectObject.ProjectClass.length; i++) {
-        // if the object already exists, update it's position
+         //if the object already exists, update it's position
         var currenObject = ProjectObject.ProjectClass[i];
         if (currenObject.ProjectVideosId == ProjectId) {
-            currenObject.XPosition = Math.floor(b.xmin);
-            currenObject.YPosition = Math.floor(b.ymin - backVideo.height);
-            currenObject.Width = Math.floor(b.width);
-            currenObject.Height = Math.floor(b.height);
+            currenObject.XPosition = Math.floor(canvasX);
+            currenObject.YPosition = Math.floor(canvasY);
+            currenObject.Width = Math.floor(canvasBounds.width);
+            currenObject.Height = Math.floor(canvasBounds.height);
             currenObject.Rotation = canvas.style.rotation;
-            console.log("current object?", currenObject);
         }
     }
+
    
 }
 
