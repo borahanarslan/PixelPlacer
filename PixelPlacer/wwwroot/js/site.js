@@ -308,16 +308,33 @@ function drop(ev) {
         'rot-origin': '50% 50%'
     });
 
-    $(canvas).mouseup("mouseup", MouseUp);
+    $(canvas).mouseup(TransformMouseUp);
 }
 
 
-function MouseUp(ev)
+function TransformMouseUp(ev)
 {
     var canvas = event.target;
+    $(canvas).freetrans({ 'rot-origin': '0' });
     var b = $(canvas).freetrans('getBounds');
-    console.log(b.width, b.height, b.xmin, b.ymin);
 
+    // to pass the ProjectVideoId remove the string added to make a custome id
+    var ProjectId = canvas.id.replace("c-canvas-", "");
+
+    // To avoid duplicate objects in the array, loop through the Array length
+    for (var i = 0; i < ProjectObject.ProjectClass.length; i++) {
+        // if the object already exists, update it's position
+        var currenObject = ProjectObject.ProjectClass[i];
+        if (currenObject.ProjectVideosId == ProjectId) {
+            currenObject.XPosition = Math.floor(b.xmin);
+            currenObject.YPosition = Math.floor(b.ymin - backVideo.height);
+            currenObject.Width = Math.floor(b.width);
+            currenObject.Height = Math.floor(b.height);
+            currenObject.Rotation = canvas.style.rotation;
+            console.log("current object?", currenObject);
+        }
+    }
+   
 }
 
 

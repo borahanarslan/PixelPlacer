@@ -206,6 +206,7 @@
             var up = function (evt) {
                 $(document).unbind('mousemove.freetrans', drag);
                 $(document).unbind('mouseup.freetrans', up);
+                sel[0].dispatchEvent(new Event("mouseup"));
             };
 
             $(document).bind('mousemove.freetrans', drag);
@@ -236,6 +237,7 @@
             var up = function (evt) {
                 $(document).unbind('mousemove.freetrans', drag);
                 $(document).unbind('mouseup.freetrans', up);
+                sel[0].dispatchEvent(new Event("mouseup"));
             };
 
             $(document).bind('mousemove.freetrans', drag);
@@ -447,6 +449,7 @@
                 _draw(sel, data);
                 $(document).unbind('mousemove.freetrans', drag);
                 $(document).unbind('mouseup.freetrans', up);
+                sel[0].dispatchEvent(new Event("mouseup"));
             };
 
             $(document).bind('mousemove.freetrans', drag);

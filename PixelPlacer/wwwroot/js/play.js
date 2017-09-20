@@ -18,6 +18,7 @@ var parentContainerWidth;
 var globalCounter = 2;
 var SizeInPercent;
 var backCanvas;
+var testSize;
 
 function CreateBackGround(backProjectVidoId, backFilePath, videoType, w, h)
 {
@@ -25,6 +26,7 @@ function CreateBackGround(backProjectVidoId, backFilePath, videoType, w, h)
     var parentContainer = document.getElementById("parentContainer");
     var parentContainerWidth = parentContainer.getBoundingClientRect().width;
     SizeInPercent = parentContainerWidth / w;
+    testSize = parentContainerWidth / h;
 
     backgroundVidWidth = w;
     backgroundVidHeight = h;
@@ -107,8 +109,8 @@ function CreateOverLay(ProjVideoId, filepath, x, y, w, h, r)
     Height = h;
     Rotation = r;
     globalCounter++; 
+    var heightYposition = backCanvas.height - backgroundVidHeight;
 
-    console.log("Y position", Yposition);
 
     var parentContainer = document.getElementById("parentContainer");
     var videoOverLayElement = document.createElement("video");
@@ -128,7 +130,7 @@ function CreateOverLay(ProjVideoId, filepath, x, y, w, h, r)
     canvas.id = "c-" + globalCounter;
     canvas.style.position = "absolute";
     canvas.style.left = Xposition + "px";
-    canvas.style.top = Yposition + "px";
+    canvas.style.top = (Yposition + heightYposition) + "px";
     canvas.style.rotation = Rotation;
 
     var seriously = new Seriously();
@@ -138,8 +140,8 @@ function CreateOverLay(ProjVideoId, filepath, x, y, w, h, r)
     chroma.source = src;
 
     var resize = seriously.transform("reformat");
-    resize.width = 250;
-    resize.height = 150;
+    resize.width = videoOverLayElement.width;
+    resize.height = videoOverLayElement.height;
     resize.mode = 'distort';
     resize.source = chroma;
     target.source = resize;
