@@ -39,7 +39,9 @@ namespace PixelPlacer.Controllers
         // GET: Videos
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Video.ToListAsync());
+            var user = await GetCurrentUserAsync();
+            UserVideosViewModels model = new UserVideosViewModels(_context, user);
+            return View(model);
         }
 
         // GET: Videos/Details/5

@@ -30,6 +30,7 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
     <DotNetCliToolReference Include="BundlerMinifier.Core" Version="2.5.357" />  </ItemGroup>
   <ItemGroup>
+    <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\video\thumbs\" />
   </ItemGroup>
 </Project>

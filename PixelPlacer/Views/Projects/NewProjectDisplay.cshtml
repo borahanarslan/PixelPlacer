@@ -59,7 +59,7 @@
                 @foreach (var i in Model.OverLay)
                 {
                         <h4 style="text-align:center; margin-top: 15px; padding-top:0">@i.VTitle</h4>
-                        <div id="canvas-@i.ProjVidId" class="box-showing" style="background-color: whitesmoke; width: 250px; height: 150px; margin-left: 2em;">
+                        <div id="canvas-@i.ProjVidId" class="box-showing" style="background-color: whitesmoke; width: 250px; height: 150px; margin-left: 5em;">
                             <script>createCanvas("canvas-@i.ProjVidId", "@i.VFilePath.Replace(@"\", @"\\")", "@i.Thumb.Replace(@"\", @"\\")");</script>
                         </div>
                         <a asp-controller="Projects" asp-action="RemoveProjectVideo" asp-route-id="@i.ProjVidId" class="btn btn-info btn-sm red-btn" style="margin-left:40%; margin-bottom: 30px;margin-top: 15px;">Remove</a>

@@ -1,4 +1,4 @@
-@model IEnumerable<PixelPlacer.Models.Video>
+@model PixelPlacer.Models.ViewModels.UserVideosViewModels
 
 @{
     ViewData["Title"] = "Index";
@@ -17,19 +17,19 @@
             <tr>
 
                 <th>
-                    <h4>@Html.DisplayNameFor(model => model.Thumbnail)</h4>
+                    <h4>Thumbnail</h4>
                 </th>
                 <th>
-                    <h4>@Html.DisplayNameFor(model => model.VideoTitle)</h4>
+                    <h4>Title</h4>
                 </th>
                 <th>
-                    <h4>@Html.DisplayNameFor(model => model.VideoTypeId)</h4>
+                    <h4>Video Type</h4>
                 </th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
+            @foreach (var item in Model.Videos)
             {
                 <tr>
                     <td>
