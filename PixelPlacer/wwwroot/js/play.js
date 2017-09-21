@@ -179,7 +179,9 @@ function PlayAll(ev)
             VideoArray[i].play();
             CanvasArray[i].removeEventListener("mouseover", BackGroundMouseOver);
             CanvasArray[i].removeEventListener("mouseout", MouseOut);
+            CanvasArray[i].removeEventListener("mouseover", OverlayMouseOver);
             CanvasArray[i].removeEventListener("click", ClickToPlay);
+            backGround.play();
         } else {
             VideoArray[i].pause();
         }
@@ -195,6 +197,7 @@ function StopAll(ev)
         VideoArray[i].play();
         CanvasArray[i].removeEventListener("mouseover", BackGroundMouseOver);
         CanvasArray[i].removeEventListener("mouseout", MouseOut);
+        CanvasArray[i].removeEventListener("mouseover", OverlayMouseOver);
         CanvasArray[i].removeEventListener("click", ClickToPlay);
     }
 }

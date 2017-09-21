@@ -4323,7 +4323,7 @@
       ]
     },
     "Microsoft.AspNetCore.Authentication/1.1.2": {
-      "sha512": "V+cjTf/KE30Woe/nZTaqzm/0h6RF00QfkB/6W8/E8deG4nsCYOYTyrzLt5yOBeY4rugIfSCXabUVlwiNbcr3IA==",
+      "sha512": "nG9AcO8Do23L/KcQayxx0r11wEPjB303TCV/0pqE8j3q1eMcamThFDQ3RtD/qXwk0rmMbyP3zGgZ+5I8TSLvCQ==",
       "type": "package",
       "path": "microsoft.aspnetcore.authentication/1.1.2",
       "files": [
@@ -4336,7 +4336,7 @@
       ]
     },
     "Microsoft.AspNetCore.Authentication.Cookies/1.1.2": {
-      "sha512": "kA9O5rr5okvvvpF69k8xOqUiXglC+L6n30Lhr/HjH/P6fDyu8+jvlRm+oMT0CbiKSQAPuOPHn9N0UWS4GUemPA==",
+      "sha512": "oqcuY3+r/vuanOnM1LulYMq3HJk7AGIxYYcmC6qRfLt2aEUQLzpwsgA3wYj456XbzNSXf51hu0m+fjj/V2LsVQ==",
       "type": "package",
       "path": "microsoft.aspnetcore.authentication.cookies/1.1.2",
       "files": [
@@ -4388,7 +4388,7 @@
       ]
     },
     "Microsoft.AspNetCore.Cryptography.KeyDerivation/1.1.2": {
-      "sha512": "kFzm4V5nw1fzUXSA2r9qjSrfX/Qlgzp4BXlOVDmPLkyp3sqCRBXlvvQqtfg+RiSslIEERai//7uYigt2cJ8bZw==",
+      "sha512": "LG4cN68fvL151M/+sVfOl3DkLe8a/GPSHnQtde/8hth7Najpb64ZQE3q0WRvhflc8GzStdNWmxb8Sx3j3PWliQ==",
       "type": "package",
       "path": "microsoft.aspnetcore.cryptography.keyderivation/1.1.2",
       "files": [
@@ -4451,7 +4451,7 @@
       ]
     },
     "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore/1.1.2": {
-      "sha512": "g+8/BJi9AOhOUXoH148tfauuqmpQetV8qhHhvk4TZBbsXWKIZ4yaFk3k/pjRnThAfhrx102Y5kY1S+lQ+rVxhg==",
+      "sha512": "AmxoIViWS7lqPLN96W7lXTW2bcO4YEqUNw/v/6crE1Nx+4d6BeldYjqtB8xnScmZqp1Hdiq7CEDUmGngPtUEdQ==",
       "type": "package",
       "path": "microsoft.aspnetcore.diagnostics.entityframeworkcore/1.1.2",
       "files": [
@@ -4581,7 +4581,7 @@
       ]
     },
     "Microsoft.AspNetCore.Identity/1.1.2": {
-      "sha512": "9w+SWA2O57dC3avVJGIezphNVUqRqdIYjQ43ZBCJvFy3nkfAY0OYRGmzCyRHdpcgRgO+8DZ2VnSk9t8711AHVA==",
+      "sha512": "OwKAA/0j+T5zOC1NkQLq1aqIh+K7AfYRktwqZ1UxVYoAd5wqvR2YQ8PXskAL7gG7+02UoOVlMAQrbBTg0efg6A==",
       "type": "package",
       "path": "microsoft.aspnetcore.identity/1.1.2",
       "files": [
@@ -4594,7 +4594,7 @@
       ]
     },
     "Microsoft.AspNetCore.Identity.EntityFrameworkCore/1.1.2": {
-      "sha512": "km8rEMH0dzqo3FDOx4EfroGd/tp4m0O6F9f9IhbSfJBXueUpMUY3Z+JzcQSPO3Evk3WGgujYBu2vkqxgUEVq3A==",
+      "sha512": "oB0t/RrmnVFcKMWvlCsicvElx96sHRSp+ruas5V+/OQqy97HMVAMoYJW1zRHY73pA1Dra4V+IaBGpFUeS1/o+Q==",
       "type": "package",
       "path": "microsoft.aspnetcore.identity.entityframeworkcore/1.1.2",
       "files": [
@@ -5319,7 +5319,7 @@
       ]
     },
     "Microsoft.Extensions.Configuration.UserSecrets/1.1.2": {
-      "sha512": "QljOJCOlFSXyxCf0tU+k3KA4CrTGEKRI//lxUecMXxumoUQ0vYt884qTZ99adr3XbgrECZnrwJ/RviC7R6HAAg==",
+      "sha512": "YIy96i+3yxH/HjhX7eNy7lpWRhW2ZzaGyhSpYlg92iYX5BfHSmwUgXnKQ7T2zu3WC8UMlO+r8JwnqXtBsEXIoQ==",
       "type": "package",
       "path": "microsoft.extensions.configuration.usersecrets/1.1.2",
       "files": [
@@ -10950,7 +10950,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\tlerm\\.nuget\\packages\\": {}
+    "C:\\Users\\klerma\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
@@ -10958,14 +10958,14 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\tlerm\\PixelPlacer\\PixelPlacer\\PixelPlacer.csproj",
+      "projectUniqueName": "C:\\Users\\klerma\\Desktop\\PixelPlacer\\PixelPlacer\\PixelPlacer.csproj",
       "projectName": "PixelPlacer",
-      "projectPath": "C:\\Users\\tlerm\\PixelPlacer\\PixelPlacer\\PixelPlacer.csproj",
-      "packagesPath": "C:\\Users\\tlerm\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\tlerm\\PixelPlacer\\PixelPlacer\\obj\\",
+      "projectPath": "C:\\Users\\klerma\\Desktop\\PixelPlacer\\PixelPlacer\\PixelPlacer.csproj",
+      "packagesPath": "C:\\Users\\klerma\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\klerma\\Desktop\\PixelPlacer\\PixelPlacer\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\tlerm\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\klerma\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -10973,12 +10973,18 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp1.1": {
           "projectReferences": {}
         }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
       }
     },
     "frameworks": {

@@ -212,14 +212,29 @@ namespace PixelPlacer.Controllers
         // and redirect back to DisplayNewProject View
         public async Task<IActionResult> RemoveProjectVideo(int id)
         {
+            List<ProjectVideos> numOfVidOnProject = new List<ProjectVideos>();
             if (id == 0)
             {
                 return NotFound();
             }
+            var projects = _context.ProjectVideos.SingleOrDefault(p => p.ProjectVideosId == id);
+            var projectID = projects.ProjectId;
+            numOfVidOnProject = (from pv in _context.ProjectVideos
+                                 where pv.ProjectId == projectID
+                                 select pv).ToList();
 
-            var project = _context.ProjectVideos.SingleOrDefault(p => p.ProjectVideosId == id);
-            _context.ProjectVideos.Remove(project);
-            await _context.SaveChangesAsync();
+            if (numOfVidOnProject.Count > 1)
+            {
+                _context.ProjectVideos.Remove(projects);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("NewProjectDisplay", "Projects");
+            } else if (numOfVidOnProject.Count == 1) {
+                var project = _context.Project.SingleOrDefault(v => v.ProjectId == projectID);
+                _context.ProjectVideos.Remove(projects);
+                _context.Project.Remove(project);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("NewProjectDisplay", "Projects");
+            }
             return RedirectToAction("NewProjectDisplay", "Projects");
         }
 

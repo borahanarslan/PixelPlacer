@@ -1,7 +1,8 @@
 {
   "runtimeOptions": {
     "additionalProbingPaths": [
-      "C:\\Users\\tlerm\\.nuget\\packages"
+      "C:\\Users\\klerma\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\klerma\\.nuget\\packages"
     ]
   }
 }
