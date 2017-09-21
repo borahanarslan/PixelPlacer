@@ -16,9 +16,10 @@
     </div>
 </div>
 <div class="row video-control-btns">
-        <button id="PlayButton" class="btn-xs red-btn col-xs-offset-4 col-xs-1 VideoButtons">Play/Pause</button>
+        <button id="PlayButton" class="btn-xs red-btn col-xs-offset-3 col-xs-1 VideoButtons">Play/Pause</button>
         <button id="StopButton" class="btn-xs red-btn col-xs-1 VideoButtons">Restart</button>
         <button id="InteractiveButton" class="btn-xs red-btn col-xs-1 VideoButtons">Interactive</button>
-        <a asp-action="Index" class="btn-xs red-btn col-xs-1 VideoButtons">Back to List</a>
+        <a asp-action="Index"><button class="btn-xs red-btn col-xs-1 VideoButtons">Projects</button></a>
+        <a asp-action="Profile" asp-controller="Home"><button class="btn-xs red-btn col-xs-1 VideoButtons">Home</button></a>
     @*<a asp-action="Edit" asp-route-id="@Model.ProjectId">Edit</a> |*@
 </div>

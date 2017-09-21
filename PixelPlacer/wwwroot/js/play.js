@@ -83,6 +83,7 @@ function CreateBackGround(backProjectVidoId, backFilePath, videoType, w, h)
         backCanvas.id = "c-" + counter;
         backCanvas.width = backGround.width;
         backCanvas.height = backGround.height;
+        backCanvas.style.verticalAlign = "bottom";
         CanvasArray.push(backCanvas);
 
         var context = backCanvas.getContext("2d");
@@ -204,10 +205,6 @@ function InteractivePlay(ev)
     {
         VideoArray[i].pause();
         VideoArray[i].currentTime = 0;
-        if (VideoArray[i].id == "v-1")
-        {
-            CanvasArray[i].addEventListener("mouseover", BackGroundMouseOver);
-        }
         if (CanvasArray[i].id != "c-1")
         {
             for (var b = 0; b < CanvasMouseOverArray.length; b++)
@@ -258,6 +255,7 @@ function OverlayMouseOver(ev)
         {
             ev.target.addEventListener("mouseout", MouseOut);
             VideoMouseOverArray[i].play();
+            backGround.play();           
         }
         
     }

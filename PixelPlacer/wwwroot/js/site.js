@@ -227,6 +227,8 @@ function drop(ev) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text"); //receives data that is dropped
     var canvas = document.getElementById(data); // the element that is dropped
+    var canvasMom = canvas.parentElement;
+    canvasMom.style.display = "none";
 
     /*  Element that is receiving the drop is the target and is within a 
         from the ev.target get it's parent and append the transferred data
