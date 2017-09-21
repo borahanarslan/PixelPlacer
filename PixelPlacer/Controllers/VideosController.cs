@@ -218,26 +218,65 @@ namespace PixelPlacer.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            var user = await GetCurrentUserAsync();
+            List<ProjectVideos> VidsInProjects = new List<ProjectVideos>();
+            
             var video = await _context.Video.SingleOrDefaultAsync(m => m.VideoId == id);
-            var videoPath = _environment.WebRootPath + "\\video\\" + Path.GetFileName(video.VideoFilePath);
-            var thumbPath = _environment.WebRootPath + "\\video\\thumbs\\" + Path.GetFileName(video.Thumbnail);
 
-            FileInfo file1 = new FileInfo(videoPath);
-            FileInfo file2 = new FileInfo(thumbPath);
-
-            //Debug.WriteLine("file path" + videoPath);
-
-            if (file1.Exists && file2.Exists)
+            VidsInProjects = (from v in _context.ProjectVideos
+                              where v.VideoId == id &&
+                              v.BackGround == true
+                              select v).ToList();
+            if (VidsInProjects.Count > 0)
             {
-                file1.Delete();
-                file2.Delete();
-                _context.Video.Remove(video);
+                foreach (var vid in VidsInProjects)
+                {
+                    var projectToDelete =  _context.Project.SingleOrDefault(p => p.ProjectId == vid.ProjectId);
+                    var videoPath = _environment.WebRootPath + "\\video\\" + Path.GetFileName(video.VideoFilePath);
+                    var thumbPath = _environment.WebRootPath + "\\video\\thumbs\\" + Path.GetFileName(video.Thumbnail);
+
+                    FileInfo file1 = new FileInfo(videoPath);
+                    FileInfo file2 = new FileInfo(thumbPath);
+
+                    if (file1.Exists && file2.Exists)
+                    {
+                        file1.Delete();
+                        file2.Delete();
+                        _context.ProjectVideos.Remove(vid);
+                        _context.Video.Remove(video);
+                        _context.Project.Remove(projectToDelete);
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
+                    
+                }
                 await _context.SaveChangesAsync();
-            }
-            else
+                return RedirectToAction("Index");
+            } else if (VidsInProjects.Count == 0)
             {
-                return NotFound();
+                var videoPath = _environment.WebRootPath + "\\video\\" + Path.GetFileName(video.VideoFilePath);
+                var thumbPath = _environment.WebRootPath + "\\video\\thumbs\\" + Path.GetFileName(video.Thumbnail);
+
+                FileInfo file1 = new FileInfo(videoPath);
+                FileInfo file2 = new FileInfo(thumbPath);
+
+                if (file1.Exists && file2.Exists)
+                {
+                    file1.Delete();
+                    file2.Delete();
+                    _context.Video.Remove(video);
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    return NotFound();
+                }
+                return RedirectToAction("Index");
             }
+
+
             return RedirectToAction("Index");
         }
 
