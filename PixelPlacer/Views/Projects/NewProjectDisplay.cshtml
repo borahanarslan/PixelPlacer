@@ -55,22 +55,24 @@
                         </div>
                     </div>
                  }
-                <div class="col-md-4 col-sm-4">
+                <div class="col-md-4 col-sm-4" style="text-align:center;">
                 @foreach (var i in Model.OverLay)
                 {
-                        <h4 style="text-align:center; margin-top: 15px; padding-top:0">@i.VTitle</h4>
-                        <div id="canvas-@i.ProjVidId" class="box-showing" style="background-color: whitesmoke; width: 250px; height: 150px; margin-left: 5em;">
+                        <h4 style="text-align:center;">@i.VTitle</h4>
+                        <div id="canvas-@i.ProjVidId" class="box-showing" style="background-color: whitesmoke; width: 250px; height: 150px; margin:auto;">
                             <script>createCanvas("canvas-@i.ProjVidId", "@i.VFilePath.Replace(@"\", @"\\")", "@i.Thumb.Replace(@"\", @"\\")");</script>
                         </div>
-                        <a asp-controller="Projects" asp-action="RemoveProjectVideo" asp-route-id="@i.ProjVidId" class="btn btn-info btn-sm red-btn" style="margin-left:40%; margin-bottom: 30px;margin-top: 15px;">Remove</a>
+                        <a asp-controller="Projects" asp-action="RemoveProjectVideo" asp-route-id="@i.ProjVidId" class="btn btn-info btn-sm red-btn" style="margin-bottom: 30px;margin-top: 15px;">Remove</a>
                         <br /><br />
                         
                  }
+                    <div style="text-align:center;">
+                        <button type="button" class="btn btn-lg red-btn" data-toggle="modal" data-target="#myModal" >Save Project</button>
+                    </div>
                 @if (Model.BackGround.Count > 0 && Model.OverLay.Count > 0)
                 {
-                    <div class="col-md-4 col-sm-4 container" id="modalParent">
+                    <div id="modalParent">
                         <!-- Trigger the modal with a button -->
-                        <button type="button" class="btn btn-lg red-btn" style="margin-left: 100%;" data-toggle="modal" data-target="#myModal">Save Project</button>
 
                         <!-- Modal -->
                         <div class="modal fade" id="myModal" role="dialog">
