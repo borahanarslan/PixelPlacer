@@ -9,14 +9,16 @@
 <div class="row">
     @foreach (var item in Model.OverLayList)
     {
-        <div class="col-md-4">
+        <div class="col-lg-3 col-md-3 pull-left" style="text-align:center;">
             <br /><br />
-            <h5 style="color:whitesmoke; margin-left:35%;"> @item.VideoTitle</h5>
+            <h5 style="color:whitesmoke;"> @item.VideoTitle</h5>
 
             <form asp-controller="Projects" asp-action="AddOverLayVideoToDB">
                 <input type="hidden" value="@item.VideoId" name="id" />
-                <img src=@item.Thumbnail style="margin-left: 1.5em;">
-                <input type="submit" value="Add Me" class="btn red-btn" style="margin-top: 10px; margin-left:35%;" />
+                <div style="margin:auto">
+                    <img src=@item.Thumbnail style="width: 250px; height: 150px;">
+                </div>
+                <input type="submit" value="Add Me" class="btn red-btn" style="margin-top: 10px;" />
             </form>
         </div>
     }

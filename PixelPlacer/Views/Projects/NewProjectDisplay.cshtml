@@ -66,11 +66,11 @@
                         <br /><br />
                         
                  }
+                @if (Model.BackGround.Count > 0 && Model.OverLay.Count > 0)
+                {
                     <div style="text-align:center;">
                         <button type="button" class="btn btn-lg red-btn" data-toggle="modal" data-target="#myModal" >Save Project</button>
                     </div>
-                @if (Model.BackGround.Count > 0 && Model.OverLay.Count > 0)
-                {
                     <div id="modalParent">
                         <!-- Trigger the modal with a button -->
 
