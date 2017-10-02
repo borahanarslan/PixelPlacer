@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using PixelPlacer.Data;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,6 +16,7 @@ namespace PixelPlacer.Models.ViewModels
         public Video Video { get; set; }
         public VideoType VT { get; set; }
 
+        [Required]
         public IFormFile UserVideo { get; set; }
 
         public List<SelectListItem> VideoTypeList { get; set; }
@@ -33,11 +35,6 @@ namespace PixelPlacer.Models.ViewModels
                                    Text = vi.Category,
                                    Value = vi.VideoTypeId.ToString()
                                }).ToList();
-            this.VideoTypeList.Insert(0, new SelectListItem
-            {
-                Text = "Select Video Category",
-                Value = "0"
-            });
         }
         public UploadVideoViewModel() { }
     }
