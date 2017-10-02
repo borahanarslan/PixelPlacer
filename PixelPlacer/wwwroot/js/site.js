@@ -357,6 +357,11 @@ $(document).ready(function () {
         e.target.form.submit();
     });
 
+    $(".overlay-vid-add-btn").click(function (e) {
+        e.target.disabled = true;
+        e.target.form.submit();
+    })
+
     $("#SaveButton").click(function () {
         var titleInputFieled = document.getElementById("ProjectTitle").value;
         ProjectObject.Title = titleInputFieled;

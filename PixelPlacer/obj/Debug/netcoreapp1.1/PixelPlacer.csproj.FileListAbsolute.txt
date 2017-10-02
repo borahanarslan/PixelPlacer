@@ -21,3 +21,14 @@ C:\Users\klerma\Desktop\PixelPlacer\PixelPlacer\obj\Debug\netcoreapp1.1\PixelPla
 C:\Users\klerma\Desktop\PixelPlacer\PixelPlacer\obj\Debug\netcoreapp1.1\PixelPlacer.AssemblyInfo.cs
 C:\Users\klerma\Desktop\PixelPlacer\PixelPlacer\obj\Debug\netcoreapp1.1\PixelPlacer.dll
 C:\Users\klerma\Desktop\PixelPlacer\PixelPlacer\obj\Debug\netcoreapp1.1\PixelPlacer.pdb
+C:\Users\tlerm\Desktop\PixelPlacer\PixelPlacer\bin\Debug\netcoreapp1.1\PixelPlacer.deps.json
+C:\Users\tlerm\Desktop\PixelPlacer\PixelPlacer\bin\Debug\netcoreapp1.1\PixelPlacer.runtimeconfig.json
+C:\Users\tlerm\Desktop\PixelPlacer\PixelPlacer\bin\Debug\netcoreapp1.1\PixelPlacer.runtimeconfig.dev.json
+C:\Users\tlerm\Desktop\PixelPlacer\PixelPlacer\bin\Debug\netcoreapp1.1\PixelPlacer.dll
+C:\Users\tlerm\Desktop\PixelPlacer\PixelPlacer\bin\Debug\netcoreapp1.1\PixelPlacer.pdb
+C:\Users\tlerm\Desktop\PixelPlacer\PixelPlacer\obj\Debug\netcoreapp1.1\PixelPlacer.csprojResolveAssemblyReference.cache
+C:\Users\tlerm\Desktop\PixelPlacer\PixelPlacer\obj\Debug\netcoreapp1.1\PixelPlacer.csproj.CoreCompileInputs.cache
+C:\Users\tlerm\Desktop\PixelPlacer\PixelPlacer\obj\Debug\netcoreapp1.1\UserSecretsAssemblyInfo.cs
+C:\Users\tlerm\Desktop\PixelPlacer\PixelPlacer\obj\Debug\netcoreapp1.1\PixelPlacer.AssemblyInfo.cs
+C:\Users\tlerm\Desktop\PixelPlacer\PixelPlacer\obj\Debug\netcoreapp1.1\PixelPlacer.dll
+C:\Users\tlerm\Desktop\PixelPlacer\PixelPlacer\obj\Debug\netcoreapp1.1\PixelPlacer.pdb

@@ -28,11 +28,6 @@ namespace PixelPlacer.Models.ViewModels
                            Text = vi.Category,
                            Value = vi.VideoTypeId.ToString()
                        }).ToList();
-            this.VideoTypeList.Insert(0, new SelectListItem
-            {
-                Text = "Select Video Category",
-                Value = "0"
-            });
         }
 
         public UpdateUploadViewModel () { }
