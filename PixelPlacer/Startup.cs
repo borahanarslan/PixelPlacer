@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using PixelPlacer.Data;
 using PixelPlacer.Models;
 using PixelPlacer.Services;
+using Microsoft.AspNetCore.Http.Features;
 
 namespace PixelPlacer
 {
@@ -48,6 +49,11 @@ namespace PixelPlacer
                 .AddDefaultTokenProviders();
 
             services.AddMvc();
+            services.Configure<FormOptions>(x =>
+            {
+                x.ValueLengthLimit = int.MaxValue;
+                x.MultipartBodyLengthLimit = int.MaxValue;
+            });
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
