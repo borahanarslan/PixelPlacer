@@ -352,6 +352,11 @@ the project is no longer open
 Event also saves the Canvas position of the overlay videos in the DB
 */ 
 $(document).ready(function () {
+    $(".background-vid-add-btn").click(function (e) {
+        e.target.disabled = true;
+        e.target.form.submit();
+    });
+
     $("#SaveButton").click(function () {
         var titleInputFieled = document.getElementById("ProjectTitle").value;
         ProjectObject.Title = titleInputFieled;
